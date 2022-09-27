@@ -1,0 +1,20 @@
+{
+  "name": "lightbox-sdk",
+  "version": "0.0.0",
+  "description": "Small javascript library to encapsulate websites in a lightbox with configurable styles and behaviors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://JuanZea@bitbucket.org/placetopay/lightbox-sdk.git"
+  },
+  "keywords": ["lightbox", "sdk", "javascript", "typescript"],
+  "author": "JuanZea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/placetopay/lightbox-sdk/issues"
+  },
+  "homepage": "https://bitbucket.org/placetopay/lightbox-sdk#readme"
+}

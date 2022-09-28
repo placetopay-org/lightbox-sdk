@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- README.md documentation file
+- Example pages
+- Prettier and ESLint dependencies
 - CHANGELOG.md file
+- README.md documentation file
 
 [Unreleased]: https://bitbucket.org/placetopay/lightbox-sdk/src/main/

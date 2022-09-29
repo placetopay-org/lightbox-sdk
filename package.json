@@ -5,11 +5,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist/lib"
   ],
   "scripts": {
+    "dev": "vite",
+    "prebuild": "npm run clean-build",
     "build": "tsc",
+    "postbuild": "copyfiles -u 1 src/**/*.css dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean-build": "rimraf dist/",
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint": "npx eslint --ext .ts --fix ./",
@@ -34,10 +38,18 @@
   },
   "homepage": "https://bitbucket.org/placetopay/lightbox-sdk#readme",
   "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
+    "@vitejs/plugin-react": "^2.1.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.24.0",
     "prettier": "^2.7.1",
-    "typescript": "^4.8.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.3",
+    "vite": "^3.1.4"
   }
 }

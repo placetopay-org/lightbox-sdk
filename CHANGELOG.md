@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Full lifecycle for elements, callbacks and styles (init - mount - unmount)
+- Modularized constants and types
+- Assembly logic encapsulated as a module
+- Separate modules in client and app
+- Build scripts
+- React for examples
+- Vite develop integration
 - Example pages
 - Prettier and ESLint dependencies
 - CHANGELOG.md file

@@ -38,6 +38,7 @@
   },
   "homepage": "https://bitbucket.org/placetopay/lightbox-sdk#readme",
   "devDependencies": {
+    "@types/node": "^18.7.23",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.1",

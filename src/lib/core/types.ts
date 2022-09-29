@@ -4,19 +4,21 @@ export type ClientCallbacks = {
     [key: string]: ClientCallback | undefined;
 };
 
+export type ClientStyles = {
+    background?: {
+        color?: string;
+        opacity?: number;
+    };
+    rounded?: number;
+    dimension?: 'sm' | 'md' | 'lg';
+    height?: number;
+    width?: number;
+};
+
 export type InitOptions = {
     dispatch?: boolean;
     callbacks?: ClientCallbacks;
-    style?: {
-        background?: {
-            color?: string;
-            opacity?: number;
-        };
-        rounded?: number;
-        dimension?: 'sm' | 'md' | 'lg';
-        height?: number;
-        width?: number;
-    };
+    styles?: ClientStyles;
 };
 
 export type ApiStructure = {
@@ -25,6 +27,7 @@ export type ApiStructure = {
 };
 
 export type LightboxInstance = {
+    styles: ClientStyles;
     callbacks: ClientCallbacks;
     open: () => void;
 };

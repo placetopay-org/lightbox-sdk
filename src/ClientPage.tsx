@@ -11,6 +11,7 @@ const ClientPage = () => {
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <h1>Client | Lightbox SDK</h1>
+            <h2>Example</h2>
             <button
                 onClick={() =>
                     LightboxClient.init(`${window.location.origin}/src/appPage.html`, {
@@ -20,14 +21,19 @@ const ClientPage = () => {
                                 console.log('cerrado', data);
                             },
                         },
+                        styles: {
+                            background: {
+                                color: '#ff0',
+                            },
+                        },
                     })
                 }
             >
-                Open Example
+                Open (custom styles)
             </button>
-            <button onClick={() => lightboxInstance.open()}>Open Example async</button>
             <br />
-            <br />
+            <button onClick={() => lightboxInstance.open()}>Open (async + default styles)</button>
+            <h2>Custom</h2>
             <input id="inputUrl" type="text" placeholder="url" />
             <button
                 onClick={() =>

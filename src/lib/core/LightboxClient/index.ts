@@ -5,9 +5,10 @@ export const LightboxClient = {
     init: (url: string, options?: InitOptions): LightboxInstance => {
         const lightbox: LightboxInstance = {
             callbacks: options?.callbacks ?? {},
+            styles: options?.styles ?? {},
             open: () => {
                 mountListener(lightbox.callbacks);
-                mountIFrameElement(url);
+                mountIFrameElement(url, lightbox.styles);
             },
         };
 

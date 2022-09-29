@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Rounded option enabled
+- AppPage conditioned to send custom emits
 - Full lifecycle for elements, callbacks and styles (init - mount - unmount)
 - Modularized constants and types
 - Assembly logic encapsulated as a module

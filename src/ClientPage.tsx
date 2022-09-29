@@ -25,6 +25,7 @@ const ClientPage = () => {
                             background: {
                                 color: '#ff0',
                             },
+                            rounded: 16,
                         },
                     })
                 }

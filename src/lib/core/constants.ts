@@ -1,5 +1,6 @@
 export const Styles = {
     BACKGROUND_COLOR: '--placetopay-lightbox-background-color',
+    ROUNDED: '--placetopay-lightbox-border-radius',
 };
 
 export const Ids = {

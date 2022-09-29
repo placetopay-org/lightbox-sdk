@@ -36,6 +36,10 @@ const mountStyles = (styles: ClientStyles) => {
     background.push(styles.background?.opacity ?? 0.75);
 
     document.documentElement.style.setProperty(Styles.BACKGROUND_COLOR, `rgb(${background.join(', ')})`);
+
+    const rounded = styles.rounded ?? 0;
+
+    document.documentElement.style.setProperty(Styles.ROUNDED, `${rounded.toString()}px`);
 };
 
 const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void) => {

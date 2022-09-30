@@ -1,15 +1,15 @@
-import React from 'react';
 import { LightboxApp } from './lib/core/index';
 
+LightboxApp.sendStyles({ background: { color: '#ff0' } });
 const AppPage = () => {
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <h1>App | Lightbox SDK</h1>
             <h2>Close example</h2>
-            <pre>{'{ type: "onClose", data: "data" }'}</pre>
+            <pre>{'{ type: "close", data: "data" }'}</pre>
             <button
                 onClick={() => {
-                    LightboxApp.emit('onClose', 'data');
+                    LightboxApp.emit('close', 'data');
                 }}
             >
                 Close

@@ -1,3 +1,5 @@
+import { LightboxAppEvents } from './constants';
+
 export type ClientCallback = (data: unknown) => void;
 
 export type ClientCallbacks = {
@@ -18,16 +20,19 @@ export type ClientStyles = {
 export type InitOptions = {
     dispatch?: boolean;
     callbacks?: ClientCallbacks;
+    allowRedirects?: boolean;
     styles?: ClientStyles;
 };
 
 export type ApiStructure = {
+    event: LightboxAppEvents;
     data: unknown;
     type: string;
 };
 
 export type LightboxInstance = {
     styles: ClientStyles;
+    allowRedirects: boolean;
     callbacks: ClientCallbacks;
     open: () => void;
 };

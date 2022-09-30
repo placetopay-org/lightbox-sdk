@@ -18,6 +18,7 @@ export type ClientStyles = {
 export type InitOptions = {
     dispatch?: boolean;
     callbacks?: ClientCallbacks;
+    allowRedirects?: boolean;
     styles?: ClientStyles;
 };
 
@@ -28,6 +29,7 @@ export type ApiStructure = {
 
 export type LightboxInstance = {
     styles: ClientStyles;
+    allowRedirects: boolean;
     callbacks: ClientCallbacks;
     open: () => void;
 };

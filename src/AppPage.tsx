@@ -6,10 +6,10 @@ const AppPage = () => {
         <div style={{ backgroundColor: '#fff' }}>
             <h1>App | Lightbox SDK</h1>
             <h2>Close example</h2>
-            <pre>{'{ type: "onClose", data: "data" }'}</pre>
+            <pre>{'{ type: "close", data: "data" }'}</pre>
             <button
                 onClick={() => {
-                    LightboxApp.emit('onClose', 'data');
+                    LightboxApp.emit('close', 'data');
                 }}
             >
                 Close

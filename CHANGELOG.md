@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Height and width option
+- Dimensions option
+- Defined configuration file
 
 ## [0.1.0] - 2022-09-29
 ### Added
@@ -25,4 +29,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md documentation file
 
 [Unreleased]: https://bitbucket.org/placetopay/lightbox-sdk/src/main/
-<!-- [0.1.0]: TODO -->
+[0.1.0]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/1/develop

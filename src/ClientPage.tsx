@@ -17,15 +17,18 @@ const ClientPage = () => {
                     LightboxClient.init(`${window.location.origin}/src/appPage.html`, {
                         dispatch: true,
                         callbacks: {
-                            onClose: (data) => {
+                            close: (data) => {
                                 console.log('cerrado', data);
                             },
                         },
                         styles: {
                             background: {
-                                color: '#ff0',
+                                color: '#f00',
                             },
                             rounded: 16,
+                            height: 500,
+                            width: 800,
+                            dimension: 'lg',
                         },
                     })
                 }

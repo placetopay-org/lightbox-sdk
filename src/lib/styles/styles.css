@@ -16,4 +16,8 @@
     border-radius: var(--placetopay-lightbox-border-radius);
     overflow: hidden;
     background-color: white;
+    height: 100%;
+    width: 100%;
+    max-height: var(--placetopay-lightbox-max-height);
+    max-width: var(--placetopay-lightbox-max-width);
 }

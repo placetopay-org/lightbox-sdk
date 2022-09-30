@@ -9,6 +9,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 999;
+    user-select: none;
 }
 
 #placetopay_lightbox {
@@ -20,4 +21,6 @@
     width: 100%;
     max-height: var(--placetopay-lightbox-max-height);
     max-width: var(--placetopay-lightbox-max-width);
+    overflow: auto;
+    box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
 }

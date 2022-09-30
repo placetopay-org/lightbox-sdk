@@ -5,7 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.2.0] - 2022-09-30
 ### Added
+- Update stylesheet
 - LightboxApp send styles
 - AllowRedirects option
 - Helpers module
@@ -33,3 +35,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://bitbucket.org/placetopay/lightbox-sdk/src/main/
 [0.1.0]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/1/develop
+<!-- [0.2.0]: TODO -->

@@ -1,3 +1,5 @@
+import { LightboxAppEvents } from './constants';
+
 export type ClientCallback = (data: unknown) => void;
 
 export type ClientCallbacks = {
@@ -23,6 +25,7 @@ export type InitOptions = {
 };
 
 export type ApiStructure = {
+    event: LightboxAppEvents;
     data: unknown;
     type: string;
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import { LightboxClient } from './lib/core/index';
 import './lib/styles/styles.css';
 
@@ -23,7 +22,7 @@ const ClientPage = () => {
                         },
                         styles: {
                             background: {
-                                color: '#f00',
+                                opacity: 1,
                             },
                             rounded: 16,
                             height: 500,

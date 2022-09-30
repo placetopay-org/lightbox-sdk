@@ -1,8 +1,13 @@
-export const Ids = {
+export const ElementIds = {
     WRAPPER_ID: 'placetopay_lightbox_wrapper',
     IFRAME_ID: 'placetopay_lightbox',
     STYLES_ID: 'placetopay-lightbox',
 };
+
+export enum LightboxAppEvents {
+    EMIT = 'emit',
+    SEND_STYLES = 'sendStyles',
+}
 
 export const Styles = {
     BACKGROUND_COLOR: '--placetopay-lightbox-background-color',

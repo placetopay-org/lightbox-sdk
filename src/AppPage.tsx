@@ -1,6 +1,6 @@
-import React from 'react';
 import { LightboxApp } from './lib/core/index';
 
+LightboxApp.sendStyles({ background: { color: '#ff0' } });
 const AppPage = () => {
     return (
         <div style={{ backgroundColor: '#fff' }}>

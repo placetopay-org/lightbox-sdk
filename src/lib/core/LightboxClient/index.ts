@@ -1,6 +1,6 @@
 import { redirectBasedOnDriver } from '@/helpers';
 import { InitOptions, LightboxInstance } from '@/types';
-import { mountIFrameElement, mountListener } from './assemblers';
+import { mountIFrameElement, mountListeners } from './assemblers';
 
 export const LightboxClient = {
     init: (url: string, options?: InitOptions): LightboxInstance => {
@@ -10,7 +10,7 @@ export const LightboxClient = {
             styles: options?.styles ?? {},
             open: () => {
                 if (lightbox.allowRedirects) redirectBasedOnDriver(url);
-                mountListener(lightbox.callbacks);
+                mountListeners(lightbox.callbacks, lightbox.styles);
                 mountIFrameElement(url, lightbox.styles);
             },
         };

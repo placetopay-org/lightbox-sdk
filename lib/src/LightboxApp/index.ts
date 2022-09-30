@@ -1,5 +1,5 @@
-import { LightboxAppEvents } from '@/constants';
-import { ClientStyles } from '@/types';
+import { LightboxAppEvents } from '../constants';
+import { ClientStyles } from '../types';
 
 export const LightboxApp = {
     emit: (type: string, data: unknown) => {

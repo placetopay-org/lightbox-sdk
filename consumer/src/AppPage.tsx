@@ -1,4 +1,4 @@
-import { LightboxApp } from './lib/core/index';
+import { LightboxApp } from '@placetopay/lightbox-sdk';
 
 LightboxApp.sendStyles({ background: { color: '#ff0' } });
 const AppPage = () => {

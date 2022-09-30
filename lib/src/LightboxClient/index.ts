@@ -1,5 +1,5 @@
-import { redirectBasedOnDriver } from '@/helpers';
-import { InitOptions, LightboxInstance } from '@/types';
+import { redirectBasedOnDriver } from '../helpers';
+import { InitOptions, LightboxInstance } from '../types';
 import { mountIFrameElement, mountListeners } from './assemblers';
 
 export const LightboxClient = {

@@ -1,12 +1,28 @@
-import { LightboxClient } from './lib/core/index';
-import './lib/styles/styles.css';
+import { useState, useEffect } from 'react';
+import { LightboxClient, LightboxInstance } from '@placetopay/lightbox-sdk';
 
 const ClientPage = () => {
-    const lightboxInstance = LightboxClient.init(`${window.location.origin}/src/appPage.html`);
-    lightboxInstance.callbacks.onClose = (data) => {
-        console.log('cerrado', data);
+    const [customUrl, setCustomUrl] = useState<string>('');
+    const [lightboxInstance, setLightboxInstance] = useState<LightboxInstance>(
+        LightboxClient.init(`${window.location.origin}/appPage.html`)
+    );
+
+    const deleteLightboxInstanceCloseCallback = () => {
+        setLightboxInstance((lightbox) => {
+            delete lightbox.callbacks.close;
+            return lightbox;
+        });
     };
-    // delete lightboxInstance.callbacks.onClose;
+
+    useEffect(() => {
+        setLightboxInstance((lightbox) => {
+            lightbox.callbacks.close = (data) => {
+                console.log('cerrado', data);
+            };
+            return lightbox;
+        });
+    }, []);
+
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <h1>Client | Lightbox SDK</h1>
@@ -35,12 +51,17 @@ const ClientPage = () => {
                 Open (custom styles)
             </button>
             <br />
-            <button onClick={() => lightboxInstance.open()}>Open (async + default styles)</button>
+
+            <hr />
+            <button onClick={lightboxInstance.open}>Open (async + default styles)</button>
+            <button onClick={deleteLightboxInstanceCloseCallback}>Delete close callback</button>
+            <hr />
+
             <h2>Custom</h2>
-            <input id="inputUrl" type="text" placeholder="url" />
+            <input type="text" placeholder="url" onChange={(e) => setCustomUrl(e.target.value)} />
             <button
                 onClick={() =>
-                    LightboxClient.init((document.getElementById('inputUrl') as HTMLInputElement).value, {
+                    LightboxClient.init(customUrl, {
                         dispatch: true,
                         callbacks: {
                             onClose: (data) => {

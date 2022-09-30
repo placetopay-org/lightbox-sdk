@@ -1,6 +1,6 @@
-import { Config } from '@/config';
-import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '@/constants';
-import { ClientCallbacks, ApiStructure, ClientStyles } from '@/types';
+import { Config } from '../config';
+import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
+import { ClientCallbacks, ApiStructure, ClientStyles } from '../types';
 
 export const mountListeners = (callbacks: ClientCallbacks, styles: ClientStyles) => {
     if (!callbacks) return;

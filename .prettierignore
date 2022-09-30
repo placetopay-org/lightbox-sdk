@@ -1,0 +1,10 @@
+# Dependencies
+package.json
+package-lock.json
+
+# Node artifact files
+node_modules/
+dist/
+
+# Docs
+*.md

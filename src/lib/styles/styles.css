@@ -1,0 +1,19 @@
+#placetopay_lightbox_wrapper {
+    background: var(--placetopay-lightbox-background-color);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+}
+
+#placetopay_lightbox {
+    border: 0;
+    border-radius: var(--placetopay-lightbox-border-radius);
+    overflow: hidden;
+    background-color: white;
+}

@@ -29,6 +29,7 @@ const ClientPage = () => {
                                 console.log('cerrado', data);
                             },
                         },
+                        closeButton: false,
                         styles: {
                             background: {
                                 opacity: 0.9,

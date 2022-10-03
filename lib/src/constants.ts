@@ -1,6 +1,7 @@
 export enum ElementIds {
     WRAPPER_ID = 'placetopay_lightbox_wrapper',
     IFRAME_ID = 'placetopay_lightbox',
+    CLOSE_BUTTON_ID = 'placetopay_close_button',
     STYLES_ID = 'placetopay-lightbox',
 }
 
@@ -8,6 +9,7 @@ export enum LightboxAppEvents {
     CLOSE = 'close',
     EMIT = 'emit',
     SEND_STYLES = 'sendStyles',
+    HIDE_CLOSE_BUTTON = 'hideCloseButton',
 }
 
 export enum Styles {

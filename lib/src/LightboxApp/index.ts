@@ -12,4 +12,7 @@ export const LightboxApp = {
     sendStyles: (styles: ClientStyles) => {
         globalThis.parent.postMessage({ type: LightboxAppEvents.SEND_STYLES, payload: styles }, '*');
     },
+    hideCloseButton: () => {
+        globalThis.parent.postMessage({ type: LightboxAppEvents.HIDE_CLOSE_BUTTON }, '*');
+    },
 };

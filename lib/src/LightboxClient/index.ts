@@ -1,6 +1,6 @@
 import { redirectBasedOnDriver } from '../helpers';
 import { InitOptions, LightboxInstance } from '../types';
-import { mountLightbox, mountListeners } from './assemblers';
+import { mountLightbox, mountListener } from './assemblers';
 
 export const LightboxClient = {
     init: (url: string, options?: InitOptions): LightboxInstance => {
@@ -11,7 +11,7 @@ export const LightboxClient = {
             styles: options?.styles ?? {},
             open: () => {
                 if (lightbox.allowRedirects) redirectBasedOnDriver(url);
-                mountListeners(lightbox.callbacks, lightbox.styles);
+                mountListener(lightbox.callbacks, lightbox.styles);
                 mountLightbox(url, lightbox.styles, lightbox.closeButton);
             },
         };

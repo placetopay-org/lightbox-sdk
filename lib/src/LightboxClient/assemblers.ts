@@ -2,11 +2,14 @@ import { Config } from '../config';
 import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
 import { ClientCallbacks, ClientStyles, LightboxEvents } from '../types';
 
-export const mountListeners = (callbacks: ClientCallbacks, styles: ClientStyles) => {
+export const mountListener = (callbacks: ClientCallbacks, styles: ClientStyles) => {
     if (!callbacks) return;
 
     const listener = (event: MessageEvent<LightboxEvents>) => {
         switch (event.data.type) {
+            case LightboxAppEvents.CLOSE:
+                unmountLightbox(listener);
+                break;
             case LightboxAppEvents.EMIT:
                 callbacks[event.data.payload.type]?.(event.data.payload.payload);
                 break;
@@ -17,8 +20,8 @@ export const mountListeners = (callbacks: ClientCallbacks, styles: ClientStyles)
                     background: { ...event.data.payload.background, ...styles.background },
                 });
                 break;
-            case LightboxAppEvents.CLOSE:
-                unmountLightbox(listener);
+            case LightboxAppEvents.HIDE_CLOSE_BUTTON:
+                document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
                 break;
         }
     };
@@ -26,7 +29,7 @@ export const mountListeners = (callbacks: ClientCallbacks, styles: ClientStyles)
     globalThis.addEventListener('message', listener);
 };
 
-export const mountLightbox = (url: string, styles: ClientStyles, closeButton: boolean) => {
+export const mountLightbox = (url: string, styles: ClientStyles, closeButtonEnabled: boolean) => {
     const wrapper = document.createElement('div');
     wrapper.id = ElementIds.WRAPPER_ID;
 
@@ -38,6 +41,22 @@ export const mountLightbox = (url: string, styles: ClientStyles, closeButton: bo
 
     document.body.appendChild(wrapper);
     wrapper.appendChild(iframe);
+
+    if (closeButtonEnabled) {
+        const closeButton = document.createElement('button');
+        closeButton.id = ElementIds.CLOSE_BUTTON_ID;
+
+        closeButton.addEventListener('click', () => {
+            globalThis.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+        });
+
+        const closeButtonContent = document.createElement('span');
+        closeButtonContent.classList.add('placetopay-close-button-content');
+        closeButtonContent.textContent = 'x';
+
+        closeButton.appendChild(closeButtonContent);
+        wrapper.appendChild(closeButton);
+    }
 };
 
 const mountStyles = (styles: ClientStyles) => {

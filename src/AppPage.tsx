@@ -9,6 +9,7 @@ const AppPage = () => {
             <button onClick={() => LightboxApp.sendStyles({ background: { color: '#ff0' }, rounded: 99 })}>
                 request styles
             </button>
+            <button onClick={() => LightboxApp.hideCloseButton()}>hide close button</button>
             <hr />
             <pre>{'{ type: "close", data: "data" }'}</pre>
             <button

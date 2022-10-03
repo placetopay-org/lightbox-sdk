@@ -1,3 +1,5 @@
+@import url('./close_button.css');
+
 #placetopay_lightbox_wrapper {
     background: var(--placetopay-lightbox-background-color);
     position: fixed;

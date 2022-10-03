@@ -36,4 +36,5 @@ export type LightboxInstance = Required<InitOptions> & {
 export type LightboxEvents =
     | { type: LightboxAppEvents.CLOSE }
     | { type: LightboxAppEvents.EMIT; payload: ApiStructure }
-    | { type: LightboxAppEvents.SEND_STYLES; payload: ClientStyles };
+    | { type: LightboxAppEvents.SEND_STYLES; payload: ClientStyles }
+    | { type: LightboxAppEvents.HIDE_CLOSE_BUTTON };

@@ -56,7 +56,7 @@ const ClientPage = () => {
                             },
                             custom: (data) => {
                                 console.log('callback personalizado', data);
-                            }
+                            },
                         },
                     }).open()
                 }

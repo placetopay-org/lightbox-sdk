@@ -1,12 +1,15 @@
 {
-  "name": "consumer",
+  "name": "@placetopay/consumer-of-lightbox-sdk",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "prebuild": "npm run clean-build",
+    "build": "tsc --build tsconfig.production.json",
+    "postbuild": "copyfiles -u 2 lib/src/**/*.css lib/dist/",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean-build": "rimraf lib/dist/",
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint": "npx eslint --ext .ts --fix ./",
@@ -24,9 +27,11 @@
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "@vitejs/plugin-react": "^2.1.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.24.0",
     "eslint-plugin-react": "^7.31.8",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.6.4",
     "vite": "^3.1.0"
   }

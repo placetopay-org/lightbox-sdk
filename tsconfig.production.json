@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "module": "esnext",
         "declaration": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "node",
-        "outDir": "./dist"
+        "outDir": "./lib/dist",
+        "rootDir": "./lib/src"
     },
-    "include": ["src/**/*"],
+    "include": ["lib/src/**/*"],
     "exclude": ["node_modules"]
 }

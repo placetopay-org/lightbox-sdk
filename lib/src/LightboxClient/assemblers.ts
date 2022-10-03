@@ -1,31 +1,35 @@
 import { Config } from '../config';
 import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
-import { ClientCallbacks, ApiStructure, ClientStyles } from '../types';
+import { ClientCallbacks, ClientStyles, LightboxEvents } from '../types';
 
-export const mountListeners = (callbacks: ClientCallbacks, styles: ClientStyles) => {
+export const mountListener = (callbacks: ClientCallbacks, styles: ClientStyles) => {
     if (!callbacks) return;
 
-    const callbacksListener = (event: MessageEvent<ApiStructure>) => {
-        if (event.data.event !== LightboxAppEvents.EMIT) return;
-        callbacks[event.data.type]?.(event.data.data);
-        unmountLightbox(callbacksListener);
+    const listener = (event: MessageEvent<LightboxEvents>) => {
+        switch (event.data.type) {
+            case LightboxAppEvents.CLOSE:
+                unmountLightbox(listener);
+                break;
+            case LightboxAppEvents.EMIT:
+                callbacks[event.data.payload.type]?.(event.data.payload.payload);
+                break;
+            case LightboxAppEvents.SEND_STYLES:
+                mountStyles({
+                    ...event.data.payload,
+                    ...styles,
+                    background: { ...event.data.payload.background, ...styles.background },
+                });
+                break;
+            case LightboxAppEvents.HIDE_CLOSE_BUTTON:
+                document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
+                break;
+        }
     };
 
-    const stylesListener = (event: MessageEvent<{ event: LightboxAppEvents; styles: ClientStyles }>) => {
-        if (event.data.event !== LightboxAppEvents.SEND_STYLES) return;
-        mountStyles({
-            ...event.data.styles,
-            ...styles,
-            background: { ...event.data.styles.background, ...styles.background },
-        });
-        globalThis.removeEventListener('message', stylesListener);
-    };
-
-    globalThis.addEventListener('message', callbacksListener);
-    globalThis.addEventListener('message', stylesListener);
+    globalThis.addEventListener('message', listener);
 };
 
-export const mountIFrameElement = (url: string, styles: ClientStyles) => {
+export const mountLightbox = (url: string, styles: ClientStyles, closeButtonEnabled: boolean) => {
     const wrapper = document.createElement('div');
     wrapper.id = ElementIds.WRAPPER_ID;
 
@@ -37,6 +41,22 @@ export const mountIFrameElement = (url: string, styles: ClientStyles) => {
 
     document.body.appendChild(wrapper);
     wrapper.appendChild(iframe);
+
+    if (closeButtonEnabled) {
+        const closeButton = document.createElement('button');
+        closeButton.id = ElementIds.CLOSE_BUTTON_ID;
+
+        closeButton.addEventListener('click', () => {
+            globalThis.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+        });
+
+        const closeButtonContent = document.createElement('span');
+        closeButtonContent.classList.add('placetopay-close-button-content');
+        closeButtonContent.textContent = 'x';
+
+        closeButton.appendChild(closeButtonContent);
+        wrapper.appendChild(closeButton);
+    }
 };
 
 const mountStyles = (styles: ClientStyles) => {
@@ -61,7 +81,7 @@ const mountStyles = (styles: ClientStyles) => {
     document.documentElement.style.setProperty(Styles.MAX_WIDTH, `${width.toString()}px`);
 };
 
-const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void) => {
+const unmountLightbox = (listener: (event: MessageEvent<LightboxEvents>) => void) => {
     document.getElementById(ElementIds.WRAPPER_ID)?.remove();
     globalThis.removeEventListener('message', listener);
     document.documentElement.style.removeProperty(Styles.BACKGROUND_COLOR);

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import ClientPage from './ClientPage';
 import AppPage from './AppPage';
-import '@placetopay/lightbox-sdk/dist/styles/styles.css';
+import '@placetopay/lightbox-sdk/dist/css/styles.css';
 
 const client = document.getElementById('clientRoot') as HTMLElement;
 const app = document.getElementById('appRoot') as HTMLElement;

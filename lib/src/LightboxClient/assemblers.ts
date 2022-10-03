@@ -1,8 +1,8 @@
 import { Config } from '../config';
 import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
-import { ClientCallbacks, ClientStyles, LightboxEvents } from '../types';
+import { ClientCallbacks, LightboxStyles, LightboxEvents } from '../types';
 
-export const mountListener = (callbacks: ClientCallbacks, styles: ClientStyles) => {
+export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
     if (!callbacks) return;
 
     const listener = (event: MessageEvent<LightboxEvents>) => {
@@ -29,7 +29,7 @@ export const mountListener = (callbacks: ClientCallbacks, styles: ClientStyles) 
     globalThis.addEventListener('message', listener);
 };
 
-export const mountLightbox = (url: string, styles: ClientStyles, closeButtonEnabled: boolean) => {
+export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEnabled: boolean) => {
     const wrapper = document.createElement('div');
     wrapper.id = ElementIds.WRAPPER_ID;
 
@@ -59,7 +59,7 @@ export const mountLightbox = (url: string, styles: ClientStyles, closeButtonEnab
     }
 };
 
-const mountStyles = (styles: ClientStyles) => {
+const mountStyles = (styles: LightboxStyles) => {
     const background = styles.background?.color
         ?.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => '#' + r + r + g + g + b + b)
         .substring(1)

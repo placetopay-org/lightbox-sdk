@@ -1,5 +1,5 @@
 import { LightboxAppEvents } from '../constants';
-import { ClientStyles } from '../types';
+import { LightboxStyles } from '../types';
 
 export const LightboxApp = {
     close: () => {
@@ -9,7 +9,7 @@ export const LightboxApp = {
         globalThis.parent.postMessage({ type: LightboxAppEvents.EMIT, payload: { type, payload } }, '*');
         return { close: LightboxApp.close };
     },
-    sendStyles: (styles: ClientStyles) => {
+    sendStyles: (styles: LightboxStyles) => {
         globalThis.parent.postMessage({ type: LightboxAppEvents.SEND_STYLES, payload: styles }, '*');
     },
     hideCloseButton: () => {

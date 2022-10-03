@@ -6,7 +6,7 @@ export type ClientCallbacks = {
     [key: string]: ClientCallback | undefined;
 };
 
-export type ClientStyles = {
+export type LightboxStyles = {
     background?: {
         color?: string;
         opacity?: number;
@@ -21,7 +21,7 @@ export type InitOptions = {
     allowRedirects?: boolean;
     callbacks?: ClientCallbacks;
     closeButton?: boolean;
-    styles?: ClientStyles;
+    styles?: LightboxStyles;
 };
 
 export type ApiStructure = {
@@ -36,5 +36,5 @@ export type LightboxInstance = Required<InitOptions> & {
 export type LightboxEvents =
     | { type: LightboxAppEvents.CLOSE }
     | { type: LightboxAppEvents.EMIT; payload: ApiStructure }
-    | { type: LightboxAppEvents.SEND_STYLES; payload: ClientStyles }
+    | { type: LightboxAppEvents.SEND_STYLES; payload: LightboxStyles }
     | { type: LightboxAppEvents.HIDE_CLOSE_BUTTON };

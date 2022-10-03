@@ -1,22 +1,21 @@
 import { redirectBasedOnDriver } from '../helpers';
 import { InitOptions, LightboxInstance } from '../types';
-import { mountIFrameElement, mountListeners } from './assemblers';
+import { mountLightbox, mountListeners } from './assemblers';
 
 export const LightboxClient = {
     init: (url: string, options?: InitOptions): LightboxInstance => {
         const lightbox: LightboxInstance = {
-            callbacks: options?.callbacks ?? {},
             allowRedirects: options?.allowRedirects ?? true,
+            callbacks: options?.callbacks ?? {},
+            closeButton: options?.closeButton ?? true,
             styles: options?.styles ?? {},
             open: () => {
                 if (lightbox.allowRedirects) redirectBasedOnDriver(url);
                 mountListeners(lightbox.callbacks, lightbox.styles);
-                mountIFrameElement(url, lightbox.styles);
+                mountLightbox(url, lightbox.styles, lightbox.closeButton);
             },
         };
 
-        if (options?.dispatch) lightbox.open();
-        console.log(`lightbox-sdk | client initialized (${url})`);
         return lightbox;
     },
 };

@@ -2,10 +2,14 @@ import { LightboxAppEvents } from '../constants';
 import { ClientStyles } from '../types';
 
 export const LightboxApp = {
-    emit: (type: string, data: unknown) => {
-        globalThis.parent.postMessage({ event: LightboxAppEvents.EMIT, type, data }, '*');
+    close: () => {
+        globalThis.parent.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+    },
+    emit: (type: string, payload: unknown) => {
+        globalThis.parent.postMessage({ type: LightboxAppEvents.EMIT, payload: { type, payload } }, '*');
+        return { close: LightboxApp.close };
     },
     sendStyles: (styles: ClientStyles) => {
-        globalThis.parent.postMessage({ event: LightboxAppEvents.SEND_STYLES, styles }, '*');
+        globalThis.parent.postMessage({ type: LightboxAppEvents.SEND_STYLES, payload: styles }, '*');
     },
 };

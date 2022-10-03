@@ -11,28 +11,29 @@ export type ClientStyles = {
         color?: string;
         opacity?: number;
     };
-    rounded?: number;
     dimension?: 'sm' | 'md' | 'lg';
     height?: number;
+    rounded?: number;
     width?: number;
 };
 
 export type InitOptions = {
-    dispatch?: boolean;
-    callbacks?: ClientCallbacks;
     allowRedirects?: boolean;
+    callbacks?: ClientCallbacks;
+    closeButton?: boolean;
     styles?: ClientStyles;
 };
 
 export type ApiStructure = {
-    event: LightboxAppEvents;
-    data: unknown;
+    payload: unknown;
     type: string;
 };
 
-export type LightboxInstance = {
-    styles: ClientStyles;
-    allowRedirects: boolean;
-    callbacks: ClientCallbacks;
+export type LightboxInstance = Required<InitOptions> & {
     open: () => void;
 };
+
+export type LightboxEvents =
+    | { type: LightboxAppEvents.CLOSE }
+    | { type: LightboxAppEvents.EMIT; payload: ApiStructure }
+    | { type: LightboxAppEvents.SEND_STYLES; payload: ClientStyles };

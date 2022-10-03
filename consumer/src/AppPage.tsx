@@ -1,21 +1,25 @@
 import { LightboxApp } from '@placetopay/lightbox-sdk';
 
-LightboxApp.sendStyles({ background: { color: '#ff0' } });
 const AppPage = () => {
     return (
         <div style={{ backgroundColor: '#fff' }}>
-            <h1>App | Lightbox SDK</h1>
-            <h2>Close example</h2>
+            <h1>App</h1>
+            <h2>PlacetoPay | Lightbox SDK</h2>
+            <hr />
+            <button onClick={() => LightboxApp.sendStyles({ background: { color: '#ff0' }, rounded: 99 })}>
+                request styles
+            </button>
+            <hr />
             <pre>{'{ type: "close", data: "data" }'}</pre>
             <button
                 onClick={() => {
-                    LightboxApp.emit('close', 'data');
+                    LightboxApp.emit('close', 'data').close();
                 }}
             >
-                Close
+                Emit and close
             </button>
             <hr />
-            <h2>Custo close</h2>
+            <h2>Custom close</h2>
             <label htmlFor="type">type</label>
             <input id="type" type="text" />
             <br />
@@ -31,6 +35,13 @@ const AppPage = () => {
                 }}
             >
                 Emit
+            </button>
+            <button
+                onClick={() => {
+                    LightboxApp.close();
+                }}
+            >
+                Close
             </button>
         </div>
     );

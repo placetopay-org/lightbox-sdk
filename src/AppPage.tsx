@@ -53,6 +53,13 @@ const AppPage = () => {
             >
                 Close
             </button>
+            <button
+                onClick={() => {
+                    LightboxApp.close('https://www.google.com');
+                }}
+            >
+                Close and redirect to google
+            </button>
         </div>
     );
 };

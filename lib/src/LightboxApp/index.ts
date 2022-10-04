@@ -2,8 +2,9 @@ import { LightboxAppEvents } from '../constants';
 import { LightboxStyles } from '../types';
 
 export const LightboxApp = {
-    close: () => {
-        globalThis.parent.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+    close: (url?: string) => {
+        if (!url || LightboxApp.isInside()) globalThis.parent.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+        else globalThis.location.href = url;
     },
     isInside: () => globalThis.location !== globalThis.parent.location,
     emit: (type: string, payload: unknown) => {

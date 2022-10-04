@@ -5,6 +5,7 @@ export const LightboxApp = {
     close: () => {
         globalThis.parent.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
     },
+    isInside: () => globalThis.location !== globalThis.parent.location,
     emit: (type: string, payload: unknown) => {
         globalThis.parent.postMessage({ type: LightboxAppEvents.EMIT, payload: { type, payload } }, '*');
         return { close: LightboxApp.close };

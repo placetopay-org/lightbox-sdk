@@ -1,10 +1,19 @@
 import { LightboxApp } from '@placetopay/lightbox-sdk';
+import { useEffect, useState } from 'react';
 
 const AppPage = () => {
+    const [isInside, setIsInside] = useState(false);
+
+    useEffect(() => {
+        setIsInside(LightboxApp.isInside());
+    }, []);
+
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <h1>App</h1>
             <h2>PlacetoPay | Lightbox SDK</h2>
+            <hr />
+            <h4>Is it inside a lightbox?: {isInside ? 'yes' : 'no'}</h4>
             <hr />
             <button onClick={() => LightboxApp.sendStyles({ background: { color: '#ff0' }, rounded: 99 })}>
                 request styles

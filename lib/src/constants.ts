@@ -6,10 +6,9 @@ export enum ElementIds {
 }
 
 export enum LightboxAppEvents {
-    CLOSE = 'close',
-    EMIT = 'emit',
-    SEND_STYLES = 'sendStyles',
-    HIDE_CLOSE_BUTTON = 'hideCloseButton',
+    CLOSE = 'lightbox:close',
+    SEND_STYLES = 'lightbox:sendStyles',
+    HIDE_CLOSE_BUTTON = 'lightbox:hideCloseButton',
 }
 
 export enum Styles {

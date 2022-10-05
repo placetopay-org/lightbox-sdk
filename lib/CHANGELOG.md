@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.3.2] - 2022-10-03
+## [1.0.0] - 2022-10-05
+### Changed
+- Architecture change, only receive type and payload (postMessage) with reserved types
+
+## [0.3.3] - 2022-10-03
 ### Added
 - isInside method on LightboxApp
 

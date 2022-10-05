@@ -1,27 +1,29 @@
 import { Config } from '../config';
 import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
-import { ClientCallbacks, LightboxStyles, LightboxEvents } from '../types';
+import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
 
 export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
     if (!callbacks) return;
 
-    const listener = (event: MessageEvent<LightboxEvents>) => {
+    const listener = (event: MessageEvent<ApiStructure>) => {
+        let receivedStyles: LightboxStyles;
         switch (event.data.type) {
             case LightboxAppEvents.CLOSE:
                 unmountLightbox(listener);
                 break;
-            case LightboxAppEvents.EMIT:
-                callbacks[event.data.payload.type]?.(event.data.payload.payload);
-                break;
             case LightboxAppEvents.SEND_STYLES:
+                receivedStyles = event.data.payload as LightboxStyles;
                 mountStyles({
-                    ...event.data.payload,
+                    ...receivedStyles,
                     ...styles,
-                    background: { ...event.data.payload.background, ...styles.background },
+                    background: { ...receivedStyles?.background, ...styles.background },
                 });
                 break;
             case LightboxAppEvents.HIDE_CLOSE_BUTTON:
                 document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
+                break;
+            default:
+                callbacks[event.data.type]?.(event.data.payload);
                 break;
         }
     };
@@ -81,7 +83,7 @@ const mountStyles = (styles: LightboxStyles) => {
     document.documentElement.style.setProperty(Styles.MAX_WIDTH, `${width.toString()}px`);
 };
 
-const unmountLightbox = (listener: (event: MessageEvent<LightboxEvents>) => void) => {
+const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void) => {
     document.getElementById(ElementIds.WRAPPER_ID)?.remove();
     globalThis.removeEventListener('message', listener);
     document.documentElement.style.removeProperty(Styles.BACKGROUND_COLOR);

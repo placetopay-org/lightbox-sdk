@@ -1,5 +1,3 @@
-import { LightboxAppEvents } from './constants';
-
 export type ClientCallback = (data: unknown) => void;
 
 export type ClientCallbacks = {
@@ -32,9 +30,3 @@ export type ApiStructure = {
 export type LightboxInstance = Required<InitOptions> & {
     open: () => void;
 };
-
-export type LightboxEvents =
-    | { type: LightboxAppEvents.CLOSE }
-    | { type: LightboxAppEvents.EMIT; payload: ApiStructure }
-    | { type: LightboxAppEvents.SEND_STYLES; payload: LightboxStyles }
-    | { type: LightboxAppEvents.HIDE_CLOSE_BUTTON };

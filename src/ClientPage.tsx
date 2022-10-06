@@ -8,12 +8,11 @@ const ClientPage = () => {
     );
 
     useEffect(() => {
-        setLightboxInstance((lightbox) => {
-            lightbox.callbacks.close = (data) => {
-                console.log('cerrado', data);
-            };
-            return lightbox;
-        });
+        const { callbacks } = lightboxInstance;
+        callbacks.close = (data) => {
+            console.log('close', data);
+        };
+        setLightboxInstance(lightboxInstance);
     }, []);
 
     return (

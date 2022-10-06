@@ -4,7 +4,6 @@ import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
 
 export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
     if (!callbacks) return;
-    
     const listener = (event: MessageEvent<ApiStructure>) => {
         let receivedStyles: LightboxStyles;
         switch (event.data.type) {

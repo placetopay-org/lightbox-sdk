@@ -1,5 +1,3 @@
-import { LightboxAppEvents } from './constants';
-
 export type ClientCallback = (data: unknown) => void;
 
 export type ClientCallbacks = {

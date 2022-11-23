@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/lightbox-sdk",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Small javascript library to encapsulate websites in a lightbox with configurable styles and behaviors",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

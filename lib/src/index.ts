@@ -1,3 +1,2 @@
-export { LightboxApp } from './LightboxApp';
-export { LightboxClient } from './LightboxClient';
+export { LightboxSdk } from './LightboxSdk';
 export * from './types';

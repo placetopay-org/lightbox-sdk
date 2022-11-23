@@ -8,7 +8,10 @@ export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles
         let receivedStyles: LightboxStyles;
         switch (event.data.type) {
             case LightboxAppEvents.CLOSE:
-                unmountLightbox(listener);
+                unmountLightbox(listener, (event.data.payload as string) ?? event.origin);
+                break;
+            case LightboxAppEvents.CLOSE_OR_REDIRECT:
+                unmountLightbox(listener, event.origin);
                 break;
             case LightboxAppEvents.SEND_STYLES:
                 receivedStyles = event.data.payload as LightboxStyles;
@@ -32,7 +35,8 @@ export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles
 
 export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEnabled: boolean) => {
     const wrapper = document.createElement('div');
-    wrapper.id = ElementIds.WRAPPER_ID;
+    wrapper.id = new URL(url).origin;
+    wrapper.className = ElementIds.WRAPPER_ID;
 
     const iframe = document.createElement('iframe');
     iframe.src = url;
@@ -48,7 +52,7 @@ export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEn
         closeButton.id = ElementIds.CLOSE_BUTTON_ID;
 
         closeButton.addEventListener('click', () => {
-            globalThis.postMessage({ type: LightboxAppEvents.CLOSE }, '*');
+            globalThis.postMessage({ type: LightboxAppEvents.CLOSE, payload: new URL(url).origin }, '*');
         });
 
         const closeButtonContent = document.createElement('span');
@@ -82,8 +86,11 @@ const mountStyles = (styles: LightboxStyles) => {
     document.documentElement.style.setProperty(Styles.MAX_WIDTH, `${width.toString()}px`);
 };
 
-const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void) => {
-    document.getElementById(ElementIds.WRAPPER_ID)?.remove();
-    globalThis.removeEventListener('message', listener);
-    document.documentElement.style.removeProperty(Styles.BACKGROUND_COLOR);
+const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void, origin: string) => {
+    const element = document.getElementById(origin);
+    if (element) {
+        element.remove();
+        globalThis.removeEventListener('message', listener);
+        document.documentElement.style.removeProperty(Styles.BACKGROUND_COLOR);
+    } else throw new Error(`Frame from "${origin}" not found`);
 };

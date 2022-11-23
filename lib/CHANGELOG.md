@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.2.0] - 2022-11-23
+### Added
+- Playground and styles
+
+### Changed
+- Client and app compaction, now only a single object is exported
 
 ## [1.0.0] - 2022-10-05
 ### Changed
@@ -68,10 +74,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Prettier and ESLint dependencies
 - CHANGELOG.md file
 - README.md documentation file
-
-[Unreleased]: https://bitbucket.org/placetopay/lightbox-sdk/src/main/
-[0.1.0]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/1
-[0.2.0]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/2
-[0.2.1]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/3
-[0.3.0]: https://bitbucket.org/placetopay/lightbox-sdk/pull-requests/4
-<!-- [0.3.3]: TODO -->

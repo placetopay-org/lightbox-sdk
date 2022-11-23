@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.min-h-exact-screen {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.input {
+    @apply text-base;
+    @apply rounded-md transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300;
+    @apply focus:border-emerald-500 focus:ring focus:ring-offset-0 focus:ring-emerald-500 focus:ring-opacity-50;
+    @apply focus:outline-none h-9 px-4 border border-gray-300;
+}
+
+.btn {
+    @apply text-gray-800 font-semibold text-sm;
+    @apply transition-all bg-white hover:bg-gray-100 py-2 px-4 border border-gray-300 rounded shadow;
+    @apply focus:outline-none focus:border-emerald-500 focus:ring focus:ring-emerald-500 focus:ring-opacity-50;
+}

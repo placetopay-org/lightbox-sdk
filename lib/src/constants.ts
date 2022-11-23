@@ -9,6 +9,7 @@ export enum LightboxAppEvents {
     CLOSE = 'lightbox:close',
     SEND_STYLES = 'lightbox:sendStyles',
     HIDE_CLOSE_BUTTON = 'lightbox:hideCloseButton',
+    CLOSE_OR_REDIRECT = 'lightbox:closeOrRedirect',
 }
 
 export enum Styles {

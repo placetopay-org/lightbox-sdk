@@ -1,18 +1,28 @@
 # Lightbox-sdk
-Small javascript library to encapsulate websites in a lightbox with configurable styles and behaviors.
+Lightbox SDK is a comprehensive npm library designed to facilitate the creation and manipulation of iframes within your application in the form of modals.
 
-The library consists of 2 parts:
+# Usage Instructions
 
-- LightboxApp
-- LightboxClient
+To effectively use the LightboxSDK, follow these simple steps:
 
-If you have a site A, and within it you want to display a site B using Lightbox-sdk:
+## Step-by-step Usage
+Import the LightboxSdk library and initialize it with your target URL. Then, use the open() method to open the Lightbox. Here's a code example:
 
-On site A the LightboxClient will be used (site that will display a lightbox)
+```javascript
+import { LightboxSdk } from '@placetopay/lightbox-sdk';
 
-- It will define which site will be displayed in the lightbox
-- It will define the callbacks for each lightbox event
+const lightbox = new LightboxSdk('https://your-target-url.com');
+lightbox.open();
+```
 
-On site B LightboxApp will be used (site that will be shown in a lightbox)
+## Inline Usage
 
-- Define the event emission logic
+Alternatively, if you prefer a more succinct approach, you can initialize and open the lightbox inline:
+
+```javascript
+import { LightboxSdk } from '@placetopay/lightbox-sdk';
+
+new LightboxSdk('https://your-target-url.com').open();
+```
+
+With this in mind, ensure to replace `'https://your-target-url.com'` with your actual target URL.

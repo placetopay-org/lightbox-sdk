@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { handyman, viewport } from './helpers';
 import '@placetopay/lightbox-sdk/dist/css/styles.css';
+import { handyman, viewport } from './helpers';
 
 viewport.turnOnDynamicViewport();
 const [root, page] = handyman.selectReactRoot();

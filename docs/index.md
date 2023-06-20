@@ -12,7 +12,7 @@ hero:
       link: /what-is-lightbox-sdk
     - theme: alt
       text: Playground
-      link: /api-examples
+      link: /playground
 
 features:
   - title: Simplified Communication

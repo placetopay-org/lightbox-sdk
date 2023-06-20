@@ -50,16 +50,15 @@ export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEn
     if (closeButtonEnabled) {
         const closeButton = document.createElement('button');
         closeButton.id = ElementIds.CLOSE_BUTTON_ID;
+        closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#4b5563" height="24px" width="24px">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        `;
 
         closeButton.addEventListener('click', () => {
             globalThis.postMessage({ type: LightboxAppEvents.CLOSE, payload: new URL(url).origin }, '*');
         });
 
-        const closeButtonContent = document.createElement('span');
-        closeButtonContent.classList.add('placetopay-close-button-content');
-        closeButtonContent.textContent = 'x';
-
-        closeButton.appendChild(closeButtonContent);
         wrapper.appendChild(closeButton);
     }
 };

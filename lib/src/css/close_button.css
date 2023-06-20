@@ -1,34 +1,20 @@
-/* Initial design from uiverse.io by @Voxybuns */
 #placetopay_close_button {
-    /* Variables */
-    --button_radius: 100%;
-    --button_color: #e8e8e8;
-    --button_outline_color: #000000;
     cursor: pointer;
-    padding: 0;
+    padding: 4px;
     position: absolute;
     right: 8px;
     top: 8px;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    border-radius: var(--button_radius);
-    background: var(--button_outline_color);
+    border: 2px solid #4b5563;
+    background: #fff;
+    padding: 4px;
+    border-radius: 100%;
+    transition: all 0.05s ease-in-out;
 }
 
-.placetopay-close-button-content {
-    display: block;
-    box-sizing: border-box;
-    border: 2px solid var(--button_outline_color);
-    border-radius: var(--button_radius);
-    padding: 2px 7px;
-    background: var(--button_color);
-    color: var(--button_outline_color);
-    transform: translateY(-0.1em);
-    transition: transform 0.1s ease;
+#placetopay_close_button:hover {
+    transform: scale(0.9);
 }
 
 button:active .placetopay-close-button-content {
-    /* Push the button downwards when pressed */
     transform: translateY(0);
 }

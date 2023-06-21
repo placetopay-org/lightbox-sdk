@@ -10,6 +10,7 @@ defineProps<{
 
 <template>
     <input
+        class="input"
         type="text"
         :value="modelValue"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
@@ -17,7 +18,7 @@ defineProps<{
 </template>
 
 <style>
-input {
+.input {
     width: 100%;
     color: #fffff5db;
     background-color: #3c3c43;

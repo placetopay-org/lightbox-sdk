@@ -1,9 +1,10 @@
 ---
-layout: component:examplePage
+layout: false
 ---
 <script setup>
 import ExamplePage from './components/ExamplePage.vue'
 </script>
 
-
-<ExamplePage />
+<ClientOnly>
+    <ExamplePage />
+</ClientOnly>

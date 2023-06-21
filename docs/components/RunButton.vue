@@ -1,5 +1,19 @@
+<script setup lang="ts">
+import { LightboxSdk, InitOptions } from '@placetopay/lightbox-sdk';
+import '@placetopay/lightbox-sdk/dist/css/styles.css';
+
+const props = defineProps<{
+    url: string;
+    config: InitOptions;
+}>();
+
+const open = () => {
+    LightboxSdk.init(props.url, props.config).open();
+};
+</script>
+
 <template>
-    <button class="bg-[#3c3c43] text-[#fffff5db] px-4 py-1 rounded-md flex items-center gap-1">
+    <button @click="open" class="bg-[#3c3c43] text-[#fffff5db] px-4 py-1 rounded-md flex items-center gap-1">
         <span>Run</span>
         <img src="/play.svg" alt="play" />
     </button>

@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { LightboxSdk } from '@placetopay/lightbox-sdk';
+import { ref, computed, onMounted } from 'vue';
 import IsInsideIndicator from './components/IsInsideIndicator.vue';
 import OptionSection from './components/OptionSection.vue';
 import RunButton from './components/RunButton.vue';
 import VInput from './components/VInput.vue';
 import VSwitch from './components/VSwitch.vue';
-import '@placetopay/lightbox-sdk/dist/css/styles.css';
 
-const url = ref(`${window.origin}/example-page`);
+const url = ref('');
 const allowRedirects = ref(true);
 const closeButton = ref(true);
 
-const openLightbox = () => {
-    LightboxSdk.init(url.value, { allowRedirects: allowRedirects.value, closeButton: closeButton.value }).open();
-}
+const config = computed(() => ({
+    allowRedirects: allowRedirects.value,
+    closeButton: closeButton.value
+}));
 
 const sections = [
     {
@@ -33,11 +32,26 @@ const sections = [
         model: closeButton,
     },
 ];
+
+onMounted(() => {
+    let i = 0;
+    const defaultUrl = `${window.origin}/example-page`;
+    console.log(url[i]);
+    const clear = setInterval(() => {
+        url.value += defaultUrl[i];
+        i++;
+        if (i === defaultUrl.length) {
+            clearInterval(clear);
+        }
+    }, 20);
+})
 </script>
 
 # Playground
 
-<IsInsideIndicator />
+<ClientOnly>
+    <IsInsideIndicator />
+</ClientOnly>
 
 ## Url {.!mb-0}
 
@@ -45,17 +59,25 @@ const sections = [
 
 <VInput v-model="url"/>
 
-<OptionSection v-for="section in sections" :title="section.title" :description="section.description" :type="section.type" :default="section.default" v-model="section.model.value"/>
+<OptionSection v-for="section in sections" 
+    :title="section.title"
+    :description="section.description"
+    :type="section.type"
+    :default="section.default"
+    v-model="section.model.value"
+/>
 
 ## Code
 
 ```js-vue
 import { LightboxSdk } from '@placetopay/lightbox-sdk';
 
-LightboxSdk('{{ url }}', { // [!code focus:4]
+LightboxSdk.init('{{ url }}', { // [!code focus:4]
     allowRedirects: {{ allowRedirects }}, 
     closeButton: {{ closeButton }}
 }).open();
 ```
 
-<RunButton @click="openLightbox" />
+<ClientOnly>
+    <RunButton :url="url" :config="config" />
+</ClientOnly>

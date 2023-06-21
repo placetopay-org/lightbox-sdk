@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { LightboxSdk } from '@placetopay/lightbox-sdk';
 import IsInsideIndicator from './IsInsideIndicator.vue';
 </script>

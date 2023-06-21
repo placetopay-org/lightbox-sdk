@@ -35,7 +35,7 @@ const sections = [
 
 onMounted(() => {
     let i = 0;
-    const defaultUrl = `${window.origin}/example-page`;
+    const defaultUrl = `${location.href.slice(0, -10)}example-page`;
     console.log(url[i]);
     const clear = setInterval(() => {
         url.value += defaultUrl[i];

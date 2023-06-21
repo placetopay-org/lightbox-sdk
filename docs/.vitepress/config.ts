@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
     lang: 'en-US',
     title: 'Lightbox SDK',
+    base: '/lightbox-sdk/',
     description: 'Manage iframes in an Easy Way',
     appearance: 'dark',
     cleanUrls: true,

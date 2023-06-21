@@ -4,16 +4,13 @@
 set -e
 
 # clean build
-rm -rf dist
+rm -rf docs/.vitepress/dist
 
 # build
 npm run build:docs
 
 # navigate into the build output directory
 cd docs/.vitepress/dist
-
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
 
 git init
 git checkout -b deploy

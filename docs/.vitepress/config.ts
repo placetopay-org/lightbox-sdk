@@ -8,6 +8,7 @@ export default defineConfig({
     description: 'Manage iframes in an Easy Way',
     appearance: 'dark',
     cleanUrls: true,
+    head: [['link', { rel: 'icon', href: '/lightbox-sdk/favicon.ico' }]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         logo: '/favicon.ico',

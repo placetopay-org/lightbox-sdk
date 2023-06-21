@@ -6,11 +6,15 @@ export default defineConfig({
     title: 'Lightbox SDK',
     description: 'Manage iframes in an Easy Way',
     appearance: 'dark',
+    cleanUrls: true,
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         logo: '/favicon.ico',
 
-        nav: [{ text: 'Home', link: '/what-is-lightbox-sdk' }],
+        nav: [
+            { text: 'Home', link: '/what-is-lightbox-sdk' },
+            { text: 'Example Page', link: '/example-page' },
+        ],
 
         sidebar: [
             {

@@ -1,7 +1,3 @@
----
-home: true
----
-
 # Getting Started
 
 ## Install Lightbox SDK
@@ -22,6 +18,13 @@ yarn add -D @placetopay/lightbox-sdk
 
 To effectively use the LightboxSDK, follow these simple steps:
 
+### Import the styles
+
+
+```js
+import '@placetopay/lightbox-sdk/dist/css/styles.css';
+```
+
 ### Step-by-step Usage
 
 Import the LightboxSdk library and initialize it with your target URL. Then, use the open() method to open the Lightbox. Here's a code example:
@@ -29,7 +32,7 @@ Import the LightboxSdk library and initialize it with your target URL. Then, use
 ```js
 import { LightboxSdk } from '@placetopay/lightbox-sdk';
 
-const lightbox = new LightboxSdk('https://your-target-url.com');
+const lightbox = LightboxSdk('https://your-target-url.com');
 lightbox.open();
 ```
 
@@ -40,7 +43,7 @@ Alternatively, if you prefer a more succinct approach, you can initialize and op
 ```js
 import { LightboxSdk } from '@placetopay/lightbox-sdk';
 
-new LightboxSdk('https://your-target-url.com').open();
+LightboxSdk('https://your-target-url.com').open();
 ```
 
 With this in mind, ensure to replace `'https://your-target-url.com'` with your actual target URL.

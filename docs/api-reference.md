@@ -1,49 +1,25 @@
----
-outline: deep
----
+# API Reference
 
-# Runtime API Examples
+## init()
 
-This page demonstrates usage of some of the runtime APIs provided by VitePress.
+Initializes the lightbox with a specified URL and options, returns an instance of the lightbox.
 
-The main `useData()` API can be used to access site, theme, and page data for the current page. It works in both `.md` and `.vue` files:
+- **Type**
 
-```md
-<script setup>
-import { useData } from 'vitepress'
+  ```ts
+  function init(url: string, options?: InitOptions): LightboxInstance
+  ```
 
-const { theme, page, frontmatter } = useData()
-</script>
+- **Details**
 
-## Results
+  The first argument is the target Url. The second optional argument is the options to be passed to the lightbox instance.
 
-### Theme Data
-<pre>{{ theme }}</pre>
+- **Example**
 
-### Page Data
-<pre>{{ page }}</pre>
+  ```js
+  import { LightboxSdk } from '@placetopay/lightbox-sdk';
 
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
-```
+  const lightbox = LightboxSdk('https://checkout.placetopay.com/')
+  ```
 
-<script setup>
-import { useData } from 'vitepress'
-
-const { site, theme, page, frontmatter } = useData()
-</script>
-
-## Results
-
-### Theme Data
-<pre>{{ theme }}</pre>
-
-### Page Data
-<pre>{{ page }}</pre>
-
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
-
-## More
-
-Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
+- **See also** [Guide - Getting Started - Usage instructions](/getting-started#usage-instructions)

@@ -14,19 +14,7 @@ export default defineConfig({
         logo: '/favicon.ico',
 
         nav: [
-            { text: 'Home', link: '/what-is-lightbox-sdk' },
-            { text: 'Example Page', link: '/example-page' },
-        ],
-
-        sidebar: [
-            {
-                text: 'Guide',
-                collapsed: false,
-                items: [
-                    { text: 'What is Lightbox SDK?', link: '/what-is-lightbox-sdk' },
-                    { text: 'Getting started', link: '/getting-started' },
-                ],
-            },
+            { text: 'Docs', link: '/getting-started' },
             {
                 text: 'Playground',
                 link: '/playground',
@@ -35,6 +23,18 @@ export default defineConfig({
                 text: 'Api reference',
                 link: '/api-reference',
             },
+        ],
+
+        sidebar: [
+            {
+                text: 'Guide',
+                collapsed: false,
+                items: [
+                    { text: 'Getting started', link: '/getting-started' },
+                    { text: 'Use without installation', link: '/use-without-installation' },
+                ],
+            },
+            { text: 'Contributing', link: '/contributing' },
         ],
 
         socialLinks: [{ icon: 'github', link: 'https://github.com/placetopay-org/lightbox-sdk' }],

@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /what-is-lightbox-sdk
+      link: /getting-started
     - theme: alt
       text: Playground
       link: /playground

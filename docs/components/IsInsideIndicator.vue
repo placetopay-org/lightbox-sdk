@@ -1,10 +1,10 @@
-<script setup>
-import { LightboxSdk } from '@placetopay/lightbox-sdk';
+<script setup lang="ts">
+import { isInside } from '@placetopay/lightbox-sdk';
 </script>
 
 <template>
     <div class="flex gap-1 items-center">
-        <template v-if="LightboxSdk.isInside()">
+        <template v-if="isInside()">
             <img src="/check.svg" alt="check" />
             <span class="font-medium text-primary text-sm">currently inside a lightbox</span>
         </template>

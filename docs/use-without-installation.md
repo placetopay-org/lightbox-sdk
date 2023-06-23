@@ -13,12 +13,14 @@ The basic structure of the messages you send should be as follows:
 - **Type**
 
   ```ts
-  parent.postMessage({ type: string; payload: any }, '*')
+  parent.postMessage(
+    { type: string; payload?: unknown, preventClose?: boolean }, '*'
+  )
   ```
 
 - **Details**
 
-  Here, `type` is the name of the event you want to trigger and `payload` is any additional data you want to pass to the event handler.
+  Here, `type` is the name of the event you want to fire, `payload` is any additional data you want to pass to the event handler, and `preventClose` indicates whether to prevent the lightbox from closing after the event
 
 - **Example**
 
@@ -28,18 +30,18 @@ The basic structure of the messages you send should be as follows:
 
 ## Reserved Types
 
-The Lightbox SDK library reserves certain event types for internal functions. Using these types will trigger the associated predefined actions, rather than invoking a callback of the same name. The reserved types are as follows:
+The Lightbox SDK library uses certain types of events for internal functions. Using these types will trigger the associated predefined actions, but will also invoke the callback of the same name (enclosing the interaction information). The reserved types are the following:
 
-- **lightbox:close**: Triggers the lightbox to close.
-- **lightbox:sendStyles**: Requests for new styles to be applied to the lightbox.
-- **lightbox:hideCloseButton**: Hides the manual close button of the lightbox.
+- **close**: Triggers the lightbox to close.
+- **sendStyles**: Requests for new styles to be applied to the lightbox.
+- **hideCloseButton**: Hides the manual close button of the lightbox.
 
 ## Predefined Actions
 
-Given the reservation of certain event types, you can trigger predefined actions by sending a message with the corresponding event type. For example, to close the lightbox, you can send the following message:
+Given the use of certain names for predefined events, you can trigger these actions by sending a message with the corresponding event type. For example, to close the lightbox, you can send the following message:
 
 ```js
-parent.postMessage({ type: 'lightbox:close' }, '*')
+parent.postMessage({ type: 'close' }, '*')
 ```
 
 This will result in the lightbox closing. This approach can be used to interact with the Lightbox SDK library without needing to install it directly into your code.

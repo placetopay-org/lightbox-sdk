@@ -1,13 +1,13 @@
 # API Reference
 
-## init()
+## createLightbox()
 
 Initializes the lightbox with a specified URL and options, returns an instance of the lightbox.
 
 - **Type**
 
   ```ts
-  function init(url: string, options?: InitOptions): LightboxInstance
+  function createLightbox(url: string, options?: InitOptions): LightboxInstance
   ```
 
 - **Details**
@@ -17,9 +17,9 @@ Initializes the lightbox with a specified URL and options, returns an instance o
 - **Example**
 
   ```js
-  import { LightboxSdk } from '@placetopay/lightbox-sdk';
+  import { createLightbox } from '@placetopay/lightbox-sdk';
 
-  const lightbox = LightboxSdk('https://checkout.placetopay.com/')
+  const lightbox = createLightbox('https://checkout.placetopay.com/')
   ```
 
 - **See also** [Guide - Getting Started - Usage instructions](/getting-started#usage-instructions)

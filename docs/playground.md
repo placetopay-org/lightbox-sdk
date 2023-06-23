@@ -12,7 +12,7 @@ const closeButton = ref(true);
 
 const config = computed(() => ({
     allowRedirects: allowRedirects.value,
-    closeButton: closeButton.value
+    closeButton: closeButton.value,
 }));
 
 const sections = [
@@ -36,7 +36,6 @@ const sections = [
 onMounted(() => {
     let i = 0;
     const defaultUrl = `${location.href.slice(0, -10)}example-page`;
-    console.log(url[i]);
     const clear = setInterval(() => {
         url.value += defaultUrl[i];
         i++;
@@ -55,7 +54,7 @@ onMounted(() => {
 
 ## Url {.!mb-0}
 
-<p>It is the target url that will be displayed in the lightbox.</p>
+It is the target url that will be displayed in the lightbox.
 
 <VInput v-model="url"/>
 

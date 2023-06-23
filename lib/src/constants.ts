@@ -5,11 +5,10 @@ export enum ElementIds {
     STYLES_ID = 'placetopay-lightbox',
 }
 
-export enum LightboxAppEvents {
-    CLOSE = 'lightbox:close',
-    SEND_STYLES = 'lightbox:sendStyles',
-    HIDE_CLOSE_BUTTON = 'lightbox:hideCloseButton',
-    CLOSE_OR_REDIRECT = 'lightbox:closeOrRedirect',
+export enum LightboxEvents {
+    CLOSE = 'close',
+    UPDATE_STYLES = 'updateStyles',
+    HIDE_CLOSE_BUTTON = 'hideCloseButton',
 }
 
 export enum Styles {

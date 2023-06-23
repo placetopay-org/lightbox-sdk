@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LightboxSdk, InitOptions } from '@placetopay/lightbox-sdk';
+import { createLightbox, InitOptions } from '@placetopay/lightbox-sdk';
 import '@placetopay/lightbox-sdk/dist/css/styles.css';
 
 const props = defineProps<{
@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 const open = () => {
-    LightboxSdk.init(props.url, props.config).open();
+    createLightbox(props.url, props.config).open();
 };
 </script>
 

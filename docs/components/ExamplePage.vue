@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LightboxSdk } from '@placetopay/lightbox-sdk';
+import { emitClose } from '@placetopay/lightbox-sdk';
 import IsInsideIndicator from './IsInsideIndicator.vue';
 </script>
 
@@ -10,7 +10,7 @@ import IsInsideIndicator from './IsInsideIndicator.vue';
             <IsInsideIndicator />
 
             <div class="mt-8 flex flex-wrap gap-4">
-                <button @click="() => LightboxSdk.close()" class="bg-[#3c3c43] text-[#fffff5db] px-4 py-1 rounded-md">
+                <button @click="() => emitClose()" class="bg-[#3c3c43] text-[#fffff5db] px-4 py-1 rounded-md">
                     Close
                 </button>
             </div>

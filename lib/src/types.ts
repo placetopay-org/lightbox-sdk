@@ -1,4 +1,4 @@
-export type ClientCallback = (data: unknown) => void;
+export type ClientCallback = (payload?: unknown) => void;
 
 export type ClientCallbacks = {
     [key: string]: ClientCallback | undefined;
@@ -23,10 +23,16 @@ export type InitOptions = {
 };
 
 export type ApiStructure = {
-    payload: unknown;
     type: string;
+    target?: string;
+    payload?: unknown;
+    preventClose?: boolean;
 };
 
 export type LightboxInstance = Required<InitOptions> & {
+    on: (name: string, callback: ClientCallback) => void;
     open: () => void;
+    close: (payload?: unknown) => void;
+    updateStyles: (styles: LightboxStyles) => void;
+    hideCloseButton: () => void;
 };

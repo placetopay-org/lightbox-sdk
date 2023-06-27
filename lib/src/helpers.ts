@@ -1,3 +1,7 @@
+export const postMessage = (type: string, payload?: unknown, preventClose?: boolean) => {
+    return globalThis.parent.postMessage({ type, preventClose, payload }, '*');
+};
+
 export const redirectBasedOnDriver = (url: string) => {
     if (
         navigator.userAgent.match(/iPhone|iPad|iPod/i) ||

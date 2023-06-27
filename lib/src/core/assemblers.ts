@@ -1,33 +1,25 @@
 import { Config } from '../config';
-import { Styles, ElementIds, Dimensions, LightboxAppEvents } from '../constants';
+import { Styles, ElementIds, Dimensions, LightboxEvents } from '../constants';
 import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
 
 export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
-    if (!callbacks) return;
     const listener = (event: MessageEvent<ApiStructure>) => {
-        let receivedStyles: LightboxStyles;
-        switch (event.data.type) {
-            case LightboxAppEvents.CLOSE:
-                unmountLightbox(listener, (event.data.payload as string) ?? event.origin);
-                break;
-            case LightboxAppEvents.CLOSE_OR_REDIRECT:
-                unmountLightbox(listener, event.origin);
-                break;
-            case LightboxAppEvents.SEND_STYLES:
-                receivedStyles = event.data.payload as LightboxStyles;
-                mountStyles({
-                    ...receivedStyles,
-                    ...styles,
-                    background: { ...receivedStyles?.background, ...styles.background },
-                });
-                break;
-            case LightboxAppEvents.HIDE_CLOSE_BUTTON:
-                document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
-                break;
-            default:
-                callbacks[event.data.type]?.(event.data.payload);
-                break;
+        if (event.data.type === LightboxEvents.CLOSE) unmountLightbox(listener, event.data.target ?? event.origin);
+
+        if (event.data.type === LightboxEvents.UPDATE_STYLES) {
+            const receivedStyles = event.data.payload as LightboxStyles;
+            mountStyles({
+                ...receivedStyles,
+                ...styles,
+                background: { ...receivedStyles?.background, ...styles.background },
+            });
         }
+
+        if (event.data.type === LightboxEvents.HIDE_CLOSE_BUTTON) {
+            document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
+        }
+
+        callbacks[event.data.type]?.(event.data.payload);
     };
 
     globalThis.addEventListener('message', listener);
@@ -50,16 +42,15 @@ export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEn
     if (closeButtonEnabled) {
         const closeButton = document.createElement('button');
         closeButton.id = ElementIds.CLOSE_BUTTON_ID;
+        closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#4b5563" height="24px" width="24px">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        `;
 
         closeButton.addEventListener('click', () => {
-            globalThis.postMessage({ type: LightboxAppEvents.CLOSE, payload: new URL(url).origin }, '*');
+            globalThis.postMessage({ type: LightboxEvents.CLOSE, target: new URL(url).origin }, '*');
         });
 
-        const closeButtonContent = document.createElement('span');
-        closeButtonContent.classList.add('placetopay-close-button-content');
-        closeButtonContent.textContent = 'x';
-
-        closeButton.appendChild(closeButtonContent);
         wrapper.appendChild(closeButton);
     }
 };

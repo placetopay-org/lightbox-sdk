@@ -1,2 +1,2 @@
-export { LightboxSdk } from './LightboxSdk';
+export * from './core';
 export * from './types';

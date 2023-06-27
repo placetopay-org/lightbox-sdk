@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vitepress dev docs",
     "prebuild": "npm run clean-build",
     "build": "tsc --build tsconfig.production.json",
     "postbuild": "copyfiles -u 2 lib/src/**/*.css lib/dist/",
+    "build:docs": "vitepress build docs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean-build": "rimraf lib/dist/",
     "format": "npx prettier --write .",
@@ -18,25 +19,19 @@
     "foli:check": "npm run format:check & npm run lint:check"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "vitepress": "^1.0.0-beta.3",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
-    "@vitejs/plugin-react": "^2.1.0",
     "autoprefixer": "^10.4.13",
     "copyfiles": "^2.4.1",
     "eslint": "^8.24.0",
-    "eslint-plugin-react": "^7.31.8",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0"
+    "typescript": "^4.6.4"
   }
 }

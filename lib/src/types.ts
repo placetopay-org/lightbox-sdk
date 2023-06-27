@@ -24,6 +24,7 @@ export type InitOptions = {
 
 export type ApiStructure = {
     type: string;
+    target?: string;
     payload?: unknown;
     preventClose?: boolean;
 };

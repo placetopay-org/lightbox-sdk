@@ -69,9 +69,9 @@ It is the target url that will be displayed in the lightbox.
 ## Code
 
 ```js-vue
-import { LightboxSdk } from '@placetopay/lightbox-sdk';
+import { createLightbox } from '@placetopay/lightbox-sdk';
 
-LightboxSdk.init('{{ url }}', { // [!code focus:4]
+createLightbox('{{ url }}', { // [!code focus:4]
     allowRedirects: {{ allowRedirects }}, 
     closeButton: {{ closeButton }}
 }).open();

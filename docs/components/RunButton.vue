@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createLightbox, InitOptions } from '@placetopay/lightbox-sdk';
-import '@placetopay/lightbox-sdk/dist/css/styles.css';
+import '@placetopay/lightbox-sdk/dist/styles.css';
 
 const props = defineProps<{
     url: string;

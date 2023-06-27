@@ -4,7 +4,7 @@ import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
 
 export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
     const listener = (event: MessageEvent<ApiStructure>) => {
-        if (event.data.type === LightboxEvents.CLOSE) unmountLightbox(listener, event.origin);
+        if (event.data.type === LightboxEvents.CLOSE) unmountLightbox(listener, event.data.target ?? event.origin);
 
         if (event.data.type === LightboxEvents.UPDATE_STYLES) {
             const receivedStyles = event.data.payload as LightboxStyles;
@@ -48,7 +48,7 @@ export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEn
         `;
 
         closeButton.addEventListener('click', () => {
-            globalThis.postMessage({ type: LightboxEvents.CLOSE, payload: new URL(url).origin }, '*');
+            globalThis.postMessage({ type: LightboxEvents.CLOSE, target: new URL(url).origin }, '*');
         });
 
         wrapper.appendChild(closeButton);

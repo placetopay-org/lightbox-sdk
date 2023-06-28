@@ -27,6 +27,7 @@ export const createLightbox = (
         callbacks: options?.callbacks ?? {},
         closeButton: options?.closeButton ?? true,
         styles: options?.styles ?? {},
+        url: url,
         close: emitClose,
         updateStyles: emitUpdateStyles,
         hideCloseButton: emitHideCloseButton,

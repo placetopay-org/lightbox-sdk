@@ -1,5 +1,5 @@
 .placetopay_lightbox_wrapper {
-    background: var(--placetopay-lightbox-background-color);
+    background: var(--placetopay-lightbox-backdrop-color);
     position: fixed;
     display: flex;
     justify-content: center;

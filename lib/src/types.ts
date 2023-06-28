@@ -5,14 +5,12 @@ export type ClientCallbacks = {
 };
 
 export type LightboxStyles = {
-    background?: {
-        color?: string;
-        opacity?: number;
-    };
+    backdropColor?: string;
+    backdropOpacity?: number;
     dimension?: 'sm' | 'md' | 'lg';
-    height?: number;
+    height?: string;
+    width?: string;
     rounded?: number;
-    width?: number;
 };
 
 export type InitOptions = {
@@ -30,6 +28,7 @@ export type ApiStructure = {
 };
 
 export type LightboxInstance = Required<InitOptions> & {
+    url: string;
     on: (name: string, callback: ClientCallback) => void;
     open: () => void;
     close: (payload?: unknown) => void;

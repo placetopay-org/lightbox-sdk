@@ -35,7 +35,7 @@ const sections = [
 
 onMounted(() => {
     let i = 0;
-    const defaultUrl = `${location.href.slice(0, -10)}example-page`;
+    const defaultUrl = `${window.origin}/lightbox-sdk/example-page`;
     const clear = setInterval(() => {
         url.value += defaultUrl[i];
         i++;

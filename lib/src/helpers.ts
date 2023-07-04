@@ -6,6 +6,10 @@ export const setStyle = (name: string, value: string) => {
     document.documentElement.style.setProperty(name, value);
 };
 
+export const unsetStyle = (name: string) => {
+    document.documentElement.style.removeProperty(name);
+};
+
 export const redirectBasedOnDriver = (url: string) => {
     if (
         navigator.userAgent.match(/iPhone|iPad|iPod/i) ||

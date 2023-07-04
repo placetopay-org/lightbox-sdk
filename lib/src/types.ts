@@ -7,27 +7,31 @@ export type ClientCallbacks = {
 export type LightboxStyles = {
     backdropColor?: string;
     backdropOpacity?: number;
-    dimension?: 'sm' | 'md' | 'lg';
-    height?: string;
-    width?: string;
-    rounded?: number;
+    height?: string | number;
+    width?: string | number;
+    radius?: number;
 };
 
-export type InitOptions = {
+export type ApiStructure = {
+    type: string;
+    payload?: unknown;
+    preventClose?: boolean;
+};
+
+export type InternalOptions = {
+    launch?: boolean;
+};
+
+export type ExposedOptions = {
     allowRedirects?: boolean;
     callbacks?: ClientCallbacks;
     closeButton?: boolean;
     styles?: LightboxStyles;
 };
 
-export type ApiStructure = {
-    type: string;
-    target?: string;
-    payload?: unknown;
-    preventClose?: boolean;
-};
+export type InitialOptions = ExposedOptions & InternalOptions;
 
-export type LightboxInstance = Required<InitOptions> & {
+export type LightboxInstance = Required<ExposedOptions> & {
     url: string;
     on: (name: string, callback: ClientCallback) => void;
     open: () => void;

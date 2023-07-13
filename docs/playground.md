@@ -13,6 +13,10 @@ const closeButton = ref(true);
 const config = computed(() => ({
     allowRedirects: allowRedirects.value,
     closeButton: closeButton.value,
+    enforceStyles: true,
+    styles: {
+        backdropColor: '#0000ff',
+    }
 }));
 
 const sections = [

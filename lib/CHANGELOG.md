@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2023-07-13
+### Added
+- Enforce styles option to manage style hierarchy
+
+### Changed
+- Props as object on mounting functions
+
 ## [2.0.4] - 2023-07-04
 ### Changed
 - Default lightbox styles

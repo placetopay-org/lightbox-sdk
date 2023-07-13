@@ -28,7 +28,13 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
         },
         open: () => {
             if (lightbox.allowRedirects) redirectBasedOnDriver(url);
-            mountLightbox(url, lightbox.callbacks, lightbox.styles, lightbox.closeButton);
+            mountLightbox({
+                url,
+                callbacks: lightbox.callbacks,
+                styles: lightbox.styles,
+                closeButtonEnabled: lightbox.closeButton,
+                enforceStyles: options?.enforceStyles ?? false,
+            });
         },
     };
 

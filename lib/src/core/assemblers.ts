@@ -1,15 +1,10 @@
 import { Styles, ElementIds, LightboxEvents as LE } from '../constants';
 import { setStyle, unsetStyle } from '../helpers';
-import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
+import { ApiStructure, LightboxStyles, MountLightboxOptions, MountListenerOptions } from '../types';
 
 let listener: (event: MessageEvent<ApiStructure>) => void;
 
-export const mountLightbox = (
-    url: string,
-    callbacks: ClientCallbacks,
-    styles: LightboxStyles,
-    closeButtonEnabled: boolean
-) => {
+export const mountLightbox = ({ url, callbacks, styles, closeButtonEnabled, enforceStyles }: MountLightboxOptions) => {
     const wrapper = document.createElement('div');
     wrapper.id = new URL(url).origin;
     wrapper.className = ElementIds.WRAPPER_ID;
@@ -36,14 +31,18 @@ export const mountLightbox = (
         wrapper.appendChild(closeButton);
     }
 
-    mountListener(callbacks, styles, closeButton);
+    mountListener({ callbacks, styles, closeButton, enforceStyles });
 };
 
-const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles, closeButton?: HTMLButtonElement) => {
+const mountListener = ({ callbacks, styles, closeButton, enforceStyles }: MountListenerOptions) => {
     listener = (event: MessageEvent<ApiStructure>) => {
         if (event.data.type === LE.CLOSE) unmountLightbox(event.origin);
-        if (event.data.type === LE.UPDATE_STYLES)
-            updateStyles({ ...(event.data.payload as LightboxStyles), ...styles });
+        if (event.data.type === LE.UPDATE_STYLES) {
+            const newStyles = enforceStyles
+                ? { ...(event.data.payload as LightboxStyles), ...styles }
+                : { ...styles, ...(event.data.payload as LightboxStyles) };
+            updateStyles(newStyles);
+        }
         if (event.data.type === LE.HIDE_CLOSE_BUTTON) closeButton?.remove();
         callbacks[event.data.type]?.(event.data.payload);
     };

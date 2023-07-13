@@ -1,21 +1,10 @@
-import { Config } from '../config';
-import { Styles, ElementIds, Dimensions, LightboxEvents as LE } from '../constants';
-import { setStyle } from '../helpers';
-import { ApiStructure, ClientCallbacks, LightboxStyles } from '../types';
+import { Styles, ElementIds, LightboxEvents as LE } from '../constants';
+import { setStyle, unsetStyle } from '../helpers';
+import { ApiStructure, LightboxStyles, MountLightboxOptions, MountListenerOptions } from '../types';
 
-export const mountListener = (callbacks: ClientCallbacks, styles: LightboxStyles) => {
-    const listener = (event: MessageEvent<ApiStructure>) => {
-        if (event.data.type === LE.CLOSE) unmountLightbox(listener, event.data.target ?? event.origin);
-        if (event.data.type === LE.UPDATE_STYLES) mountStyles({ ...(event.data.payload as LightboxStyles), ...styles });
-        if (event.data.type === LE.HIDE_CLOSE_BUTTON) document.getElementById(ElementIds.CLOSE_BUTTON_ID)?.remove();
+let listener: (event: MessageEvent<ApiStructure>) => void;
 
-        callbacks[event.data.type]?.(event.data.payload);
-    };
-
-    globalThis.addEventListener('message', listener);
-};
-
-export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEnabled: boolean) => {
+export const mountLightbox = ({ url, callbacks, styles, closeButtonEnabled, enforceStyles }: MountLightboxOptions) => {
     const wrapper = document.createElement('div');
     wrapper.id = new URL(url).origin;
     wrapper.className = ElementIds.WRAPPER_ID;
@@ -24,41 +13,64 @@ export const mountLightbox = (url: string, styles: LightboxStyles, closeButtonEn
     iframe.src = url;
     iframe.id = ElementIds.IFRAME_ID;
 
-    mountStyles(styles);
+    updateStyles(styles);
 
     document.body.appendChild(wrapper);
     wrapper.appendChild(iframe);
 
+    let closeButton: HTMLButtonElement;
     if (closeButtonEnabled) {
-        const closeButton = document.createElement('button');
+        closeButton = document.createElement('button');
         closeButton.id = ElementIds.CLOSE_BUTTON_ID;
-        closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#4b5563" height="24px" width="24px">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        `;
+        closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#4b5563" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>`;
 
         closeButton.addEventListener('click', () => {
-            globalThis.postMessage({ type: LE.CLOSE, target: new URL(url).origin }, '*');
+            unmountLightbox(new URL(url).origin);
         });
 
         wrapper.appendChild(closeButton);
     }
+
+    mountListener({ callbacks, styles, closeButton, enforceStyles });
 };
 
-const unmountLightbox = (listener: (event: MessageEvent<ApiStructure>) => void, origin: string) => {
-    const element = document.getElementById(origin);
+const mountListener = ({ callbacks, styles, closeButton, enforceStyles }: MountListenerOptions) => {
+    listener = (event: MessageEvent<ApiStructure>) => {
+        if (event.data.type === LE.CLOSE) unmountLightbox(event.origin);
+        if (event.data.type === LE.UPDATE_STYLES) {
+            const newStyles = enforceStyles
+                ? { ...(event.data.payload as LightboxStyles), ...styles }
+                : { ...styles, ...(event.data.payload as LightboxStyles) };
+            updateStyles(newStyles);
+        }
+        if (event.data.type === LE.HIDE_CLOSE_BUTTON) closeButton?.remove();
+        callbacks[event.data.type]?.(event.data.payload);
+    };
+
+    globalThis.addEventListener('message', listener);
+};
+
+export const unmountLightbox = (target: string) => {
+    const element = document.getElementById(target);
     if (element) {
         element.remove();
+        clearStyles();
         globalThis.removeEventListener('message', listener);
-        document.documentElement.style.removeProperty(Styles.BACKDROP_COLOR);
-    } else throw new Error(`Frame from "${origin}" not found`);
+    } else throw new Error(`Frame from "${target}" not found`);
 };
 
-const mountStyles = (styles: LightboxStyles) => {
-    setStyle(Styles.BACKDROP_COLOR, buildBackdrop(styles.backdropColor, styles.backdropOpacity));
-    setStyle(Styles.ROUNDED, `${styles.rounded ?? 0}px`);
-    setStyle(Styles.MAX_HEIGHT, buildDimension('height', styles.height, styles.dimension));
-    setStyle(Styles.MAX_WIDTH, buildDimension('width', styles.width, styles.dimension));
+const clearStyles = () => {
+    unsetStyle(Styles.BACKDROP_COLOR);
+    unsetStyle(Styles.RADIUS);
+    unsetStyle(Styles.MAX_HEIGHT);
+    unsetStyle(Styles.MAX_WIDTH);
+};
+
+const updateStyles = (styles: LightboxStyles) => {
+    setStyle(Styles.BACKDROP_COLOR, buildBackdrop(styles.backdropColor ?? '#000000', styles.backdropOpacity ?? 0.7));
+    setStyle(Styles.RADIUS, `${styles.radius ?? 0}px`);
+    setStyle(Styles.MAX_HEIGHT, buildDimension('height', styles.height ?? 640));
+    setStyle(Styles.MAX_WIDTH, buildDimension('width', styles.width ?? 512));
 };
 
 const buildBackdrop = (color: string, opacity: number) => {
@@ -66,22 +78,18 @@ const buildBackdrop = (color: string, opacity: number) => {
         ?.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => '#' + r + r + g + g + b + b)
         .substring(1)
         .match(/.{2}/g)
-        ?.map((x) => parseInt(x, 16)) ?? [107, 114, 128];
+        ?.map((x) => parseInt(x, 16));
 
-    backdrop.push(opacity ?? 0.75);
+    backdrop.push(opacity);
 
     return `rgba(${backdrop.join(', ')})`;
 };
 
-const buildDimension = (type: 'height' | 'width', value = '', dimension: LightboxStyles['dimension']) => {
-    let result = value;
-    if (dimension) result = Dimensions[dimension.toUpperCase() as keyof typeof Dimensions][type];
+const buildDimension = (type: 'height' | 'width', value: string | number) => {
+    const result = String(value);
 
     if (result.match(/^\d+%$/) || result.match(/^\d+px$/)) return result;
     if (result.match(/^\d+$/)) return `${result}px`;
 
-    if (value) {
-        console.warn(`Invalid ${type}. Must be a number, a number followed by "px", or a number followed by "%".`);
-    }
-    return `${Config.defaultDimension[type]}px`;
+    console.warn(`Invalid ${type}. Must be a number, a number followed by "px", or a number followed by "%".`);
 };

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { createLightbox, InitOptions } from '@placetopay/lightbox-sdk';
+import { createLightbox, InitialOptions } from '@placetopay/lightbox-sdk';
 import '@placetopay/lightbox-sdk/dist/styles.css';
 
 const props = defineProps<{
     url: string;
-    config: InitOptions;
+    config: InitialOptions;
 }>();
 
 const open = () => {

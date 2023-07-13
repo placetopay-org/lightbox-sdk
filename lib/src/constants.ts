@@ -13,13 +13,7 @@ export enum LightboxEvents {
 
 export enum Styles {
     BACKDROP_COLOR = '--placetopay-lightbox-backdrop-color',
-    ROUNDED = '--placetopay-lightbox-border-radius',
+    RADIUS = '--placetopay-lightbox-border-radius',
     MAX_HEIGHT = '--placetopay-lightbox-max-height',
     MAX_WIDTH = '--placetopay-lightbox-max-width',
 }
-
-export const Dimensions = {
-    SM: { height: '400', width: '320' },
-    MD: { height: '640', width: '512' },
-    LG: { height: '1000', width: '800' },
-};

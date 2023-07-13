@@ -6,6 +6,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2023-07-13
+### Added
+- Enforce styles option to manage style hierarchy
+
+### Changed
+- Props as object on mounting functions
+
+## [2.0.4] - 2023-07-04
+### Changed
+- Default lightbox styles
+
+### Removed
+- Dimensions option and config
+
+## [2.0.3] - 2023-06-29
+### Changed
+- Rename rounded style prop to radius
+
+## [2.0.2] - 2023-06-28
+### Added
+- Numbers available for width and height
+
 ## [2.0.1] - 2023-06-28
 ### Added
 - Dimensions sintax pixel and percent for width and height

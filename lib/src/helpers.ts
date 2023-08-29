@@ -15,6 +15,13 @@ export const redirectBasedOnDriver = (url: string) => {
         navigator.userAgent.match(/iPhone|iPad|iPod/i) ||
         /^((?!chrome|android).)*safari/i.test(navigator.userAgent) // regex from https://stackoverflow.com/a/23522755
     ) {
+        if (window.self !== window.top) {
+          window.parent.postMessage(
+            { type: "placetopay-lightbox:redirect", url },
+            "*"
+          ); // dont change this, it would be a broken change
+        }
+
         location.href = url;
     }
 };

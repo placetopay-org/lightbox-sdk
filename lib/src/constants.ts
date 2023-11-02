@@ -16,4 +16,7 @@ export enum Styles {
     RADIUS = '--placetopay-lightbox-border-radius',
     MAX_HEIGHT = '--placetopay-lightbox-max-height',
     MAX_WIDTH = '--placetopay-lightbox-max-width',
+    POSITION = '--placetopay-lightbox-position',
+    WRAPPER_WIDTH = '--placetopay-lightbox-wrapper-width',
+    WRAPPER_HEIGHT = '--placetopay-lightbox-wrapper-height',
 }

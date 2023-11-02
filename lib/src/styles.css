@@ -1,13 +1,13 @@
 .placetopay_lightbox_wrapper {
     background: var(--placetopay-lightbox-backdrop-color);
-    position: fixed;
+    position: var(--placetopay-lightbox-position);
     display: flex;
     justify-content: center;
     align-items: center;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: var(--placetopay-lightbox-wrapper-width);
+    height: var(--placetopay-lightbox-wrapper-height);
     z-index: 999;
     user-select: none;
 }

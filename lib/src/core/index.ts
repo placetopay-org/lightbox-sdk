@@ -15,6 +15,8 @@ export const emit = ({ type, payload, preventClose }: ApiStructure) => postMessa
 
 export const createLightbox = (url: string, options?: InitialOptions): LightboxInstance => {
     const lightbox: LightboxInstance = {
+        id: options?.id ?? new URL(url).origin,
+        element: options?.element ?? document.body,
         allowRedirects: options?.allowRedirects ?? true,
         callbacks: options?.callbacks ?? {},
         closeButton: options?.closeButton ?? true,
@@ -29,7 +31,9 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
         open: () => {
             if (lightbox.allowRedirects) redirectBasedOnDriver(url);
             mountLightbox({
+                id: lightbox.id,
                 url,
+                element: lightbox.element,
                 callbacks: lightbox.callbacks,
                 styles: lightbox.styles,
                 closeButtonEnabled: lightbox.closeButton,

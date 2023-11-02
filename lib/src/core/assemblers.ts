@@ -4,10 +4,23 @@ import { ApiStructure, LightboxStyles, MountLightboxOptions, MountListenerOption
 
 let listener: (event: MessageEvent<ApiStructure>) => void;
 
-export const mountLightbox = ({ url, callbacks, styles, closeButtonEnabled, enforceStyles }: MountLightboxOptions) => {
+export const mountLightbox = ({
+    id,
+    url,
+    element,
+    callbacks,
+    styles,
+    closeButtonEnabled,
+    enforceStyles,
+}: MountLightboxOptions) => {
     const wrapper = document.createElement('div');
-    wrapper.id = new URL(url).origin;
+    wrapper.id = id;
     wrapper.className = ElementIds.WRAPPER_ID;
+    if (element !== document.body) {
+        wrapper.style.setProperty(Styles.POSITION, 'absolute');
+        wrapper.style.setProperty(Styles.WRAPPER_HEIGHT, '100%');
+        wrapper.style.setProperty(Styles.WRAPPER_WIDTH, '100%');
+    }
 
     const iframe = document.createElement('iframe');
     iframe.src = url;
@@ -15,7 +28,9 @@ export const mountLightbox = ({ url, callbacks, styles, closeButtonEnabled, enfo
 
     updateStyles(styles);
 
-    document.body.appendChild(wrapper);
+    console.log({ isBody: element === document.body });
+
+    element.appendChild(wrapper);
     wrapper.appendChild(iframe);
 
     let closeButton: HTMLButtonElement;
@@ -25,18 +40,18 @@ export const mountLightbox = ({ url, callbacks, styles, closeButtonEnabled, enfo
         closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#4b5563" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>`;
 
         closeButton.addEventListener('click', () => {
-            unmountLightbox(new URL(url).origin);
+            unmountLightbox(id);
         });
 
         wrapper.appendChild(closeButton);
     }
 
-    mountListener({ callbacks, styles, closeButton, enforceStyles });
+    mountListener({ id, callbacks, styles, closeButton, enforceStyles });
 };
 
-const mountListener = ({ callbacks, styles, closeButton, enforceStyles }: MountListenerOptions) => {
+const mountListener = ({ id, callbacks, styles, closeButton, enforceStyles }: MountListenerOptions) => {
     listener = (event: MessageEvent<ApiStructure>) => {
-        if (event.data.type === LE.CLOSE) unmountLightbox(event.origin);
+        if (event.data.type === LE.CLOSE) unmountLightbox(id);
         if (event.data.type === LE.UPDATE_STYLES) {
             const newStyles = enforceStyles
                 ? { ...(event.data.payload as LightboxStyles), ...styles }
@@ -71,6 +86,9 @@ const updateStyles = (styles: LightboxStyles) => {
     setStyle(Styles.RADIUS, `${styles.radius ?? 0}px`);
     setStyle(Styles.MAX_HEIGHT, buildDimension('height', styles.height ?? 640));
     setStyle(Styles.MAX_WIDTH, buildDimension('width', styles.width ?? 512));
+    setStyle(Styles.POSITION, styles.position ?? 'fixed');
+    setStyle(Styles.WRAPPER_WIDTH, buildDimension('width', styles.wrapperWidth ?? '100vw'));
+    setStyle(Styles.WRAPPER_HEIGHT, buildDimension('height', styles.wrapperHeight ?? '100vh'));
 };
 
 const buildBackdrop = (color: string, opacity: number) => {
@@ -88,7 +106,7 @@ const buildBackdrop = (color: string, opacity: number) => {
 const buildDimension = (type: 'height' | 'width', value: string | number) => {
     const result = String(value);
 
-    if (result.match(/^\d+%$/) || result.match(/^\d+px$/)) return result;
+    if (result.match(/^\d+(vh|vw|px|%)$/)) return result;
     if (result.match(/^\d+$/)) return `${result}px`;
 
     console.warn(`Invalid ${type}. Must be a number, a number followed by "px", or a number followed by "%".`);

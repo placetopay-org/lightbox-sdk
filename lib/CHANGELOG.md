@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.2] - 2023-11-02
+### Added
+- ID options to identify lightbox element in the DOM.
+- Custom HTMLElement option to mount lightbox.
+
 ## [2.1.1] - 2023-08-29
 ### Added
 - Emit a post message to parent window when lightbox sdk is used into embedded page

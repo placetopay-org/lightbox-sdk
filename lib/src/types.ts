@@ -8,6 +8,9 @@ export type LightboxStyles = Partial<{
     height: string | number;
     width: string | number;
     radius: number;
+    position: 'absolute' | 'fixed';
+    wrapperWidth: string | number;
+    wrapperHeight: string | number;
 }>;
 
 export type ApiStructure = {
@@ -22,6 +25,8 @@ export type InternalOptions = Partial<{
 }>;
 
 export type ExposedOptions = Partial<{
+    id: string;
+    element: HTMLElement;
     allowRedirects: boolean;
     callbacks: ClientCallbacks;
     closeButton: boolean;
@@ -31,7 +36,9 @@ export type ExposedOptions = Partial<{
 export type InitialOptions = ExposedOptions & InternalOptions;
 
 export type MountLightboxOptions = {
+    id: string;
     url: string;
+    element: HTMLElement;
     callbacks: ClientCallbacks;
     styles: LightboxStyles;
     closeButtonEnabled: boolean;
@@ -39,6 +46,7 @@ export type MountLightboxOptions = {
 };
 
 export type MountListenerOptions = {
+    id: string;
     callbacks: ClientCallbacks;
     styles: LightboxStyles;
     closeButton: HTMLButtonElement;

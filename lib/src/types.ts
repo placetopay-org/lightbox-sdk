@@ -1,33 +1,59 @@
 export type ClientCallback = (payload?: unknown) => void;
 
-export type ClientCallbacks = {
-    [key: string]: ClientCallback | undefined;
-};
+export type ClientCallbacks = Record<string, ClientCallback | undefined>;
 
-export type LightboxStyles = {
-    backdropColor?: string;
-    backdropOpacity?: number;
-    dimension?: 'sm' | 'md' | 'lg';
-    height?: string;
-    width?: string;
-    rounded?: number;
-};
-
-export type InitOptions = {
-    allowRedirects?: boolean;
-    callbacks?: ClientCallbacks;
-    closeButton?: boolean;
-    styles?: LightboxStyles;
-};
+export type LightboxStyles = Partial<{
+    backdropColor: string;
+    backdropOpacity: number;
+    height: string | number;
+    width: string | number;
+    radius: number;
+    position: 'absolute' | 'fixed';
+    wrapperWidth: string | number;
+    wrapperHeight: string | number;
+}>;
 
 export type ApiStructure = {
     type: string;
-    target?: string;
     payload?: unknown;
     preventClose?: boolean;
 };
 
-export type LightboxInstance = Required<InitOptions> & {
+export type InternalOptions = Partial<{
+    launch: boolean;
+    enforceStyles: boolean;
+}>;
+
+export type ExposedOptions = Partial<{
+    id: string;
+    element: HTMLElement;
+    allowRedirects: boolean;
+    callbacks: ClientCallbacks;
+    closeButton: boolean;
+    styles: LightboxStyles;
+}>;
+
+export type InitialOptions = ExposedOptions & InternalOptions;
+
+export type MountLightboxOptions = {
+    id: string;
+    url: string;
+    element: HTMLElement;
+    callbacks: ClientCallbacks;
+    styles: LightboxStyles;
+    closeButtonEnabled: boolean;
+    enforceStyles: boolean;
+};
+
+export type MountListenerOptions = {
+    id: string;
+    callbacks: ClientCallbacks;
+    styles: LightboxStyles;
+    closeButton: HTMLButtonElement;
+    enforceStyles: boolean;
+};
+
+export type LightboxInstance = Required<ExposedOptions> & {
     url: string;
     on: (name: string, callback: ClientCallback) => void;
     open: () => void;

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.4] - 2023-11-04
+### Fixed
+- Use `Lightbox.id` to close lightbox from `Lightbox.close` method.
+
 ## [2.1.3] - 2023-11-03
 ### Changed
 - Remove console logs.

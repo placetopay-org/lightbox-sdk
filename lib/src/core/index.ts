@@ -22,7 +22,7 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
         closeButton: options?.closeButton ?? true,
         styles: options?.styles ?? {},
         url: url,
-        close: () => unmountLightbox(url),
+        close: () => unmountLightbox(lightbox.id),
         updateStyles,
         hideCloseButton,
         on: (name: string, callback: ClientCallback) => {

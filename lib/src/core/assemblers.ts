@@ -28,8 +28,6 @@ export const mountLightbox = ({
 
     updateStyles(styles);
 
-    console.log({ isBody: element === document.body });
-
     element.appendChild(wrapper);
     wrapper.appendChild(iframe);
 

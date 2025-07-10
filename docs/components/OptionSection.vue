@@ -2,15 +2,16 @@
 import VSwitch from './VSwitch.vue';
 
 defineEmits<{
-    (e: 'update:modelValue', value: boolean): void;
+    (e: 'update:modelValue', value: boolean | string): void;
 }>();
 
 const props = defineProps<{
-    modelValue: boolean;
+    modelValue: boolean | string;
     title: string;
     description: string;
     type: string;
     default: string;
+    options?: Array<{ value: string; label: string }>;
 }>();
 
 const getHref = () => `#${props.title.toLowerCase().replace(/ /g, '-')}`;
@@ -25,7 +26,21 @@ const getAriaLabel = () => `Permalink to "${props.title}" {.!mb-0}`;
                 {{ title }}
                 <a class="header-anchor" :href="getHref()" :aria-label="getAriaLabel()">&ZeroWidthSpace;</a>
             </h2>
-            <VSwitch :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)" />
+            <VSwitch 
+                v-if="type === 'boolean'"
+                :modelValue="modelValue as boolean" 
+                @update:modelValue="$emit('update:modelValue', $event)" 
+            />
+            <select 
+                v-else-if="type === 'select'"
+                :value="modelValue"
+                @input="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
+                class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+                <option v-for="option in options" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                </option>
+            </select>
         </div>
         <div class="flex gap-2">
             <p>

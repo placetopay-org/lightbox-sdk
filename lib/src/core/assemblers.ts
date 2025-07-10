@@ -1,5 +1,5 @@
 import { Styles, ElementIds, LightboxEvents as LE } from '../constants';
-import { setStyle, unsetStyle } from '../helpers';
+import { setStyle, unsetStyle, openWithBackup, closePopupByLightboxId, hasOpenedPopup } from '../helpers';
 import { ApiStructure, LightboxStyles, MountLightboxOptions, MountListenerOptions } from '../types';
 
 let listener: (event: MessageEvent<ApiStructure>) => void;
@@ -12,7 +12,38 @@ export const mountLightbox = ({
     styles,
     closeButtonEnabled,
     enforceStyles,
+    allowRedirects,
+    backupTarget,
 }: MountLightboxOptions) => {
+    // Check if we need to use fallback behavior for Safari/iOS
+    const isSafariOrIOS = 
+        navigator.userAgent.match(/iPhone|iPad|iPod/i) ||
+        /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isSafariOrIOS) {
+        if (window.self !== window.top) {
+            window.parent.postMessage(
+                { type: "placetopay-lightbox:redirect", url },
+                "*"
+            ); // dont change this, it would be a broken change
+        }
+
+        // Only respect allowRedirects for 'self' redirection
+        if (backupTarget === 'self' && !allowRedirects) {
+            // If allowRedirects is false and backupTarget is 'self', don't redirect
+            return;
+        }
+
+        // For popup and blank, always allow (ignore allowRedirects)
+        // For self, only allow if allowRedirects is true
+        if (backupTarget !== 'self' || allowRedirects) {
+            openWithBackup(url, backupTarget, id);
+            mountListener({ id, callbacks, styles, closeButton: undefined, enforceStyles });
+            return;
+        }
+    }
+
+    // Normal lightbox mounting for non-Safari/iOS browsers
     const wrapper = document.createElement('div');
     wrapper.id = id;
     wrapper.className = ElementIds.WRAPPER_ID;
@@ -64,6 +95,14 @@ const mountListener = ({ id, callbacks, styles, closeButton, enforceStyles }: Mo
 };
 
 export const unmountLightbox = (target: string) => {
+    // Check if there's a popup/window opened for this lightbox ID
+    if (hasOpenedPopup(target)) {
+        closePopupByLightboxId(target);
+        globalThis.removeEventListener('message', listener);
+        return;
+    }
+
+    // Handle normal lightbox unmounting
     const element = document.getElementById(target);
     if (element) {
         element.remove();

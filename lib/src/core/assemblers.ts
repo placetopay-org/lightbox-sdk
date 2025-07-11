@@ -15,6 +15,12 @@ export const mountLightbox = ({
     allowRedirects,
     backupTarget,
 }: MountLightboxOptions) => {
+    // Only respect allowRedirects for 'self' redirection
+    if (backupTarget === 'self' && !allowRedirects) {
+        // If allowRedirects is false and backupTarget is 'self', don't redirect
+        return;
+    }
+    
     // Check if we need to use fallback behavior for Safari/iOS
     const isSafariOrIOS = 
         navigator.userAgent.match(/iPhone|iPad|iPod/i) ||
@@ -26,12 +32,6 @@ export const mountLightbox = ({
                 { type: "placetopay-lightbox:redirect", url },
                 "*"
             ); // dont change this, it would be a broken change
-        }
-
-        // Only respect allowRedirects for 'self' redirection
-        if (backupTarget === 'self' && !allowRedirects) {
-            // If allowRedirects is false and backupTarget is 'self', don't redirect
-            return;
         }
 
         // For popup and blank, always allow (ignore allowRedirects)

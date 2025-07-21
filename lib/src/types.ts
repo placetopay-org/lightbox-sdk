@@ -2,6 +2,8 @@ export type ClientCallback = (payload?: unknown) => void;
 
 export type ClientCallbacks = Record<string, ClientCallback | undefined>;
 
+export type BackupTarget = 'self' | 'popup' | 'blank';
+
 export type LightboxStyles = Partial<{
     backdropColor: string;
     backdropOpacity: number;
@@ -31,6 +33,7 @@ export type ExposedOptions = Partial<{
     callbacks: ClientCallbacks;
     closeButton: boolean;
     styles: LightboxStyles;
+    backupTarget: BackupTarget;
 }>;
 
 export type InitialOptions = ExposedOptions & InternalOptions;
@@ -43,6 +46,8 @@ export type MountLightboxOptions = {
     styles: LightboxStyles;
     closeButtonEnabled: boolean;
     enforceStyles: boolean;
+    allowRedirects: boolean;
+    backupTarget: BackupTarget;
 };
 
 export type MountListenerOptions = {

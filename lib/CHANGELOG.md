@@ -6,6 +6,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2024-12-19
+### Added
+- `backupTarget` option with three fallback behaviors: `'self'` (redirect), `'popup'` (popup window), `'blank'` (new tab)
+- Enhanced backdrop overlay for popup fallbacks with dark modern design
+- Automatic language detection and translations (English/Spanish) for popup messages
+- Cross-context communication support for both iframe and popup windows
+- Popup/window tracking by lightbox ID for proper cleanup
+- Universal `close()` method that automatically handles lightbox, popup, and blank window scenarios
+- Enhanced playground with fallback testing capabilities
+
+### Changed
+- Moved fallback detection logic from core to assembler (`mountLightbox`) for better architecture
+- `allowRedirects` option now only affects `'self'` redirection, popup and blank fallbacks always work
+- `postMessage` automatically detects context and uses appropriate channel (`parent` for iframes, `opener` for popups)
+- `unmountLightbox` now automatically handles popup cleanup and backdrop removal
+- Event listener mounting improved to work consistently across all fallback scenarios
+- API Reference documentation significantly expanded with comprehensive examples and type definitions
+
+### Fixed
+- Event listeners not being mounted for popup fallback scenarios
+- Communication between popup windows and parent lightbox
+- Backdrop cleanup when popup windows are closed
+- Cross-browser compatibility issues with Safari and iOS fallback behavior
+
 ## [2.1.4] - 2023-11-04
 ### Fixed
 - Use `Lightbox.id` to close lightbox from `Lightbox.close` method.

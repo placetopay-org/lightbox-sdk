@@ -1,5 +1,5 @@
 import { LightboxEvents as LE } from '../constants';
-import { postMessage, redirectBasedOnDriver } from '../helpers';
+import { postMessage } from '../helpers';
 import { InitialOptions, LightboxInstance, ApiStructure, LightboxStyles, ClientCallback } from '../types';
 import { mountLightbox, unmountLightbox } from './assemblers';
 
@@ -21,6 +21,7 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
         callbacks: options?.callbacks ?? {},
         closeButton: options?.closeButton ?? true,
         styles: options?.styles ?? {},
+        backupTarget: options?.backupTarget ?? 'self',
         url: url,
         close: () => unmountLightbox(lightbox.id),
         updateStyles,
@@ -29,7 +30,6 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
             lightbox.callbacks[name] = callback;
         },
         open: () => {
-            if (lightbox.allowRedirects) redirectBasedOnDriver(url);
             mountLightbox({
                 id: lightbox.id,
                 url,
@@ -38,6 +38,8 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
                 styles: lightbox.styles,
                 closeButtonEnabled: lightbox.closeButton,
                 enforceStyles: options?.enforceStyles ?? false,
+                allowRedirects: lightbox.allowRedirects,
+                backupTarget: lightbox.backupTarget,
             });
         },
     };

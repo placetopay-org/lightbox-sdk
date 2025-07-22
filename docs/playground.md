@@ -9,10 +9,12 @@ import VSwitch from './components/VSwitch.vue';
 const url = ref('');
 const allowRedirects = ref(true);
 const closeButton = ref(true);
+const backupTarget = ref('self');
 
 const config = computed(() => ({
     allowRedirects: allowRedirects.value,
     closeButton: closeButton.value,
+    backupTarget: backupTarget.value,
     enforceStyles: true,
     styles: {
         backdropColor: '#0000ff',
@@ -23,7 +25,7 @@ const sections = [
     {
         title: 'Allow Redirects',
         description:
-            'Determines whether to allow redirects from the lightbox to another URL for users who are on an iOS device or a Safari browser.',
+            'Determines whether to allow redirects (backupTarget: "self") from the lightbox to another URL for users who are on an iOS device or a Safari browser. Does not affect popup or blank fallback options.',
         type: 'boolean',
         default: 'true',
         model: allowRedirects,
@@ -34,6 +36,18 @@ const sections = [
         type: 'boolean',
         default: 'true',
         model: closeButton,
+    },
+    {
+        title: 'Backup Target',
+        description: 'Defines fallback behavior when the lightbox cannot open normally (e.g., in Safari or iOS). Choose "self" to redirect in the same window, "popup" to open a popup window with informative backdrop, or "blank" to open in a new tab.',
+        type: 'select',
+        default: 'self',
+        options: [
+            { value: 'self', label: 'Self (redirect current window)' },
+            { value: 'popup', label: 'Popup (with backdrop & message)' },
+            { value: 'blank', label: 'Blank (new tab)' }
+        ],
+        model: backupTarget,
     },
 ];
 
@@ -67,6 +81,7 @@ It is the target url that will be displayed in the lightbox.
     :description="section.description"
     :type="section.type"
     :default="section.default"
+    :options="section.options"
     v-model="section.model.value"
 />
 
@@ -75,12 +90,36 @@ It is the target url that will be displayed in the lightbox.
 ```js-vue
 import { createLightbox } from '@placetopay/lightbox-sdk';
 
-createLightbox('{{ url }}', { // [!code focus:4]
+const lightbox = createLightbox('{{ url }}', { // [!code focus:5]
     allowRedirects: {{ allowRedirects }}, 
-    closeButton: {{ closeButton }}
-}).open();
+    closeButton: {{ closeButton }},
+    backupTarget: '{{ backupTarget }}'
+});
+
+lightbox.open();
+
+// Close programmatically after 30 seconds (works for lightbox AND popup)
+setTimeout(() => lightbox.close(), 30000);
 ```
 
 <ClientOnly>
     <RunButton :url="url" :config="config" />
 </ClientOnly>
+
+## Enhanced Close() Method
+
+The `lightbox.close()` method now automatically handles all scenarios:
+
+**Normal browsers** (Chrome, Firefox, Edge):
+- Opens as regular lightbox iframe
+- `close()` removes iframe and cleans up styles
+
+**Safari/iOS browsers**:
+- `backupTarget: 'popup'` → Opens popup with backdrop
+- `close()` closes popup window and removes backdrop
+- `backupTarget: 'blank'` → Opens new tab
+- `close()` closes tab window (if accessible)
+- `backupTarget: 'self'` → Redirects current window
+- `close()` has no effect (already navigated away)
+
+**Testing**: Try the playground above with different configurations. The close behavior will automatically adapt to what was actually opened.

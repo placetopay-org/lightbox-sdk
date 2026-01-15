@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `isSafariOrIOS()` utility to detect Safari browser or iOS devices
+- `isInsideIframe()` utility to detect if running inside an iframe
+- `isInsidePopup()` utility to detect if running inside a popup window
+
+### Fixed
+- Popup windows in Safari reusing the same window due to hardcoded window name. Now each popup uses a unique name based on `lightboxId` or generates one with `crypto.randomUUID()`
 
 ## [2.2.0] - 2024-12-19
 ### Added

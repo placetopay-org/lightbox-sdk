@@ -18,6 +18,10 @@ let backdropElement: HTMLElement | null = null;
 
 const openedWindows: Record<string, { window: Window; type: BackupTarget }> = {};
 
+const generatePopupName = (lightboxId?: string): string => {
+    return lightboxId ?? `placetopay_${crypto.randomUUID()}`;
+};
+
 // Private translations
 const translations = {
     en: {
@@ -144,7 +148,7 @@ export const openWithBackup = (url: string, backupTarget: BackupTarget = 'self',
 
             openedWindow = window.open(
                 url,
-                'placetopay',
+                generatePopupName(lightboxId),
                 `popup=true,width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
             );
             break;

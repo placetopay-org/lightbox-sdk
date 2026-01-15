@@ -1,6 +1,7 @@
 import { Styles, ElementIds, LightboxEvents as LE } from '../constants';
 import { setStyle, unsetStyle, openWithBackup, closePopupByLightboxId, hasOpenedPopup } from '../helpers';
 import { ApiStructure, LightboxStyles, MountLightboxOptions, MountListenerOptions } from '../types';
+import { isSafariOrIOS } from './index';
 
 let listener: (event: MessageEvent<ApiStructure>) => void;
 
@@ -21,12 +22,7 @@ export const mountLightbox = ({
         return;
     }
     
-    // Check if we need to use fallback behavior for Safari/iOS
-    const isSafariOrIOS = 
-        navigator.userAgent.match(/iPhone|iPad|iPod/i) ||
-        /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-    if (isSafariOrIOS) {
+    if (isSafariOrIOS()) {
         if (window.self !== window.top) {
             window.parent.postMessage(
                 { type: "placetopay-lightbox:redirect", url },

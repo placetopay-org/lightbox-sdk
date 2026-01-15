@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-01-15
+### Added
+- `isSafariOrIOS()` utility to detect Safari browser or iOS devices
+- `isInsideIframe()` utility to detect if running inside an iframe
+- `isInsidePopup()` utility to detect if running inside a popup window
+
+### Fixed
+- Popup windows in Safari reusing the same window due to hardcoded window name. Now each popup uses a unique name based on `lightboxId` or generates one with `crypto.randomUUID()`
+
 ## [2.2.0] - 2024-12-19
 ### Added
 - `backupTarget` option with three fallback behaviors: `'self'` (redirect), `'popup'` (popup window), `'blank'` (new tab)

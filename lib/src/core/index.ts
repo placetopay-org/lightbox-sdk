@@ -4,6 +4,12 @@ import { InitialOptions, LightboxInstance, ApiStructure, LightboxStyles, ClientC
 import { mountLightbox, unmountLightbox } from './assemblers';
 
 export const isInside = () => globalThis.location !== globalThis.parent.location;
+export const isInsideIframe = () => globalThis.self !== globalThis.top;
+export const isInsidePopup = () => !!globalThis.opener;
+export const isSafariOrIOS = () =>
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export const updateStyles = (styles: LightboxStyles) => postMessage(LE.UPDATE_STYLES, styles);
 export const hideCloseButton = () => postMessage(LE.HIDE_CLOSE_BUTTON);
 

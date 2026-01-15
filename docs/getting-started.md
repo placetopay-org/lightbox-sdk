@@ -36,7 +36,7 @@ To effectively use the LightboxSDK, follow these simple steps:
 It is very important to import this CSS file when using the library, they are essential to ensure that the lightbox has the expected look and feel, however, if preferred, it is also possible to override these styles with custom styles after import, to tailor the look and feel of the lightbox. appearance of the lightbox to the specific needs of your website.
 
 ```js
-import '@placetopay/lightbox-sdk/dist/css/styles.css';
+import '@placetopay/lightbox-sdk/dist/styles.css';
 ```
 
 ### Step-by-step Usage

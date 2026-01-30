@@ -9,6 +9,7 @@ export enum LightboxEvents {
     CLOSE = 'close',
     UPDATE_STYLES = 'updateStyles',
     HIDE_CLOSE_BUTTON = 'hideCloseButton',
+    CLOSE_BY_USER = 'closeByUser',
 }
 
 export enum Styles {

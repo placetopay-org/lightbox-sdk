@@ -25,6 +25,10 @@ npm install -D @placetopay/lightbox-sdk
 yarn add -D @placetopay/lightbox-sdk
 ```
 
+```bash [pnpm]
+pnpm add -D @placetopay/lightbox-sdk
+```
+
 :::
 
 ## Usage Instructions

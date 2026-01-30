@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import '@placetopay/lightbox-sdk/dist/styles.css';
-import { emitClose, hideCloseButton, updateStyles, createLightbox } from '@placetopay/lightbox-sdk';
+import '../../lib/dist/styles.css';
+import { emitClose, hideCloseButton, updateStyles, createLightbox } from '../../lib/dist';
 import IsInsideIndicator from './IsInsideIndicator.vue';
 </script>
 

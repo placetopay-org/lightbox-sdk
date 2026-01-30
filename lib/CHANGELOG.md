@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-01-30
+### Added
+- `CLOSE_BY_USER` event to detect when user closes the lightbox
+- pnpm installation instructions in getting started documentation
+
+### Changed
+- Enhanced `unmountBackdrop()` to emit `CLOSE_BY_USER` event when user closes the lightbox
+
+
 ## [2.3.0] - 2026-01-15
 ### Added
 - `isSafariOrIOS()` utility to detect Safari browser or iOS devices

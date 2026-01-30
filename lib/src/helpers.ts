@@ -1,4 +1,5 @@
 import type { BackupTarget } from './types';
+import { LightboxEvents as LE } from './constants';
 
 export const postMessage = (type: string, payload?: unknown, preventClose?: boolean) => {
     const target = globalThis.opener || globalThis.parent;
@@ -131,6 +132,7 @@ export const unmountBackdrop = () => {
     document.body.classList.remove('placetopay-lightbox-open');
     
     openedWindow = null;
+    postMessage(LE.CLOSE_BY_USER);
 };
 
 export const openWithBackup = (url: string, backupTarget: BackupTarget = 'self', lightboxId?: string) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isInside } from '@placetopay/lightbox-sdk';
+import { isInside } from '../../lib/dist';
 </script>
 
 <template>

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- "Continue" and "Cancel" actions to the lightbox backdrop when a popup is opened.
+- "Continue" brings the popup window back to focus if it gets lost behind other windows.
+- "Cancel" closes the popup and terminates the lightbox process.
 
 ## [2.4.0] - 2026-01-30
 ### Added

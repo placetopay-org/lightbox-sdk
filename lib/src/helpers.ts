@@ -27,12 +27,17 @@ const generatePopupName = (lightboxId?: string): string => {
 const translations = {
     en: {
         popupTitle: 'Popup Opened',
-        popupMessage: 'Please complete the process in the popup window. This window will remain blocked until finished.',
+        popupMessage:
+            'Please complete the process in the popup window. This window will remain blocked until finished.',
+        continueButton: 'Continue',
+        cancelButton: 'Cancel',
     },
     es: {
         popupTitle: 'Popup Abierto',
         popupMessage:
             'Por favor, complete el proceso en la ventana emergente. Esta ventana permanecerá bloqueada hasta que finalice.',
+        continueButton: 'Continuar',
+        cancelButton: 'Cancelar',
     },
 };
 
@@ -101,8 +106,48 @@ export const mountBackdrop = () => {
         opacity: 0.9;
     `;
 
+    const continueButton = document.createElement('button');
+    continueButton.textContent = getText('continueButton');
+    continueButton.style.cssText = `
+        margin-top: 20px;
+        margin-right: 10px;
+        padding: 10px 18px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: none;
+        background: #ffffff;
+        color: #000000;
+        font-weight: 600;
+    `;
+    continueButton.onclick = () => {
+        if (openedWindow && !openedWindow.closed) {
+            openedWindow.focus();
+        }
+    };
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = getText('cancelButton');
+    cancelButton.style.cssText = `
+        margin-top: 20px;
+        padding: 10px 18px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        background: transparent;
+        color: #ffffff;
+        font-weight: 600;
+    `;
+    cancelButton.onclick = () => {
+        if (openedWindow && !openedWindow.closed) {
+            openedWindow.close();
+        }
+        unmountBackdrop();
+    };
+
     messageContainer.appendChild(title);
     messageContainer.appendChild(message);
+    messageContainer.appendChild(continueButton);
+    messageContainer.appendChild(cancelButton);
     backdropElement.appendChild(messageContainer);
     document.body.appendChild(backdropElement);
     document.body.classList.add('placetopay-lightbox-open');
@@ -126,11 +171,11 @@ export const unmountBackdrop = () => {
         document.body.removeChild(backdropElement);
         backdropElement = null;
     }
-    
+
     // Restore body styles
     document.body.style.overflow = '';
     document.body.classList.remove('placetopay-lightbox-open');
-    
+
     openedWindow = null;
     postMessage(LE.CLOSE_BY_USER);
 };

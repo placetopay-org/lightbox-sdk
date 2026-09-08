@@ -34,6 +34,7 @@ export type ExposedOptions = Partial<{
     closeButton: boolean;
     styles: LightboxStyles;
     backupTarget: BackupTarget;
+    allowPayment: boolean;
 }>;
 
 export type InitialOptions = ExposedOptions & InternalOptions;
@@ -48,6 +49,7 @@ export type MountLightboxOptions = {
     enforceStyles: boolean;
     allowRedirects: boolean;
     backupTarget: BackupTarget;
+    allowPayment: boolean;
 };
 
 export type MountListenerOptions = {

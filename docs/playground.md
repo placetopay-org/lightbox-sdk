@@ -18,7 +18,8 @@ const config = computed(() => ({
     enforceStyles: true,
     styles: {
         backdropColor: '#0000ff',
-    }
+    },
+    allowPayment: true
 }));
 
 const sections = [
@@ -76,7 +77,7 @@ It is the target url that will be displayed in the lightbox.
 
 <VInput v-model="url"/>
 
-<OptionSection v-for="section in sections" 
+<OptionSection v-for="section in sections"
     :title="section.title"
     :description="section.description"
     :type="section.type"
@@ -91,7 +92,7 @@ It is the target url that will be displayed in the lightbox.
 import { createLightbox } from '@placetopay/lightbox-sdk';
 
 const lightbox = createLightbox('{{ url }}', { // [!code focus:5]
-    allowRedirects: {{ allowRedirects }}, 
+    allowRedirects: {{ allowRedirects }},
     closeButton: {{ closeButton }},
     backupTarget: '{{ backupTarget }}'
 });

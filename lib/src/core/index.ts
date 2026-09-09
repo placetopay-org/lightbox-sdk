@@ -7,8 +7,7 @@ export const isInside = () => globalThis.location !== globalThis.parent.location
 export const isInsideIframe = () => globalThis.self !== globalThis.top;
 export const isInsidePopup = () => !!globalThis.opener;
 export const isSafariOrIOS = () =>
-    /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-    /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) || /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export const updateStyles = (styles: LightboxStyles) => postMessage(LE.UPDATE_STYLES, styles);
 export const hideCloseButton = () => postMessage(LE.HIDE_CLOSE_BUTTON);
@@ -28,6 +27,7 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
         closeButton: options?.closeButton ?? true,
         styles: options?.styles ?? {},
         backupTarget: options?.backupTarget ?? 'self',
+        allowPayment: options?.allowPayment ?? false,
         url: url,
         close: () => unmountLightbox(lightbox.id),
         updateStyles,
@@ -46,6 +46,7 @@ export const createLightbox = (url: string, options?: InitialOptions): LightboxI
                 enforceStyles: options?.enforceStyles ?? false,
                 allowRedirects: lightbox.allowRedirects,
                 backupTarget: lightbox.backupTarget,
+                allowPayment: lightbox.allowPayment,
             });
         },
     };

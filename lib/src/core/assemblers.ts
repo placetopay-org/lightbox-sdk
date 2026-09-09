@@ -15,19 +15,17 @@ export const mountLightbox = ({
     enforceStyles,
     allowRedirects,
     backupTarget,
+    allowPayment,
 }: MountLightboxOptions) => {
     // Only respect allowRedirects for 'self' redirection
     if (backupTarget === 'self' && !allowRedirects) {
         // If allowRedirects is false and backupTarget is 'self', don't redirect
         return;
     }
-    
+
     if (isSafariOrIOS()) {
         if (window.self !== window.top) {
-            window.parent.postMessage(
-                { type: "placetopay-lightbox:redirect", url },
-                "*"
-            ); // dont change this, it would be a broken change
+            window.parent.postMessage({ type: 'placetopay-lightbox:redirect', url }, '*'); // dont change this, it would be a broken change
         }
 
         // For popup and blank, always allow (ignore allowRedirects)
@@ -52,6 +50,9 @@ export const mountLightbox = ({
     const iframe = document.createElement('iframe');
     iframe.src = url;
     iframe.id = ElementIds.IFRAME_ID;
+    if (allowPayment) {
+        iframe.setAttribute('allow', 'payment');
+    }
 
     updateStyles(styles);
 
